@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+<html lang="en-us">
+
+<head>
+
+  <meta charset="UTF-8">
+  <title>Project 1</title>
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+  <!-- Firebase Reference -->
+  <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+
+  <!-- Moment.js Reference -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Fjalla+One" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+</head>
+
+<body style="background-color: black">
+  <nav class="navbar navbar-dark bg-dark">
+    <span class="navbar-brand mb-0 h1">urBrew</span>
+  </nav>
+
+  <div class="container-fluid">
+
+    <!-- Jumbotron -->
+    <div class="jumbotron" style="background:transparent url('assets/images/beer.jpeg') no-repeat center center /cover; color: white; font-family: 'Fjalla One', sans-serif; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; ">
+      <h3 class="text-left">What type of beer do you like?</h3>
+      <h4 class="text-left">We will try to match you with some beer you may enjoy.</h4>
+      <br>
+      <input class="form-control form-control-lg" type="text" style="align-items: center" placeholder="Ale">
+      <br>
+      <button type="button" class="btn btn-light" style="align-items: center">Beer Me!</button>
+    </div>
+
+    <div class="row">
+      <!-- <div id="beer"> -->
+        <!-- div id="beer" is where the API will load I think we should use the content aware medium property to display the picture, list the name of the beer, abv, and name of the category.  We can make the category a hyperlink to the description. 
+        "contentAwareMedium": "https://brewerydb-images.s3.amazonaws.com/beer/4U8cc8/upload_PzZ10B-contentAwareMedium.png"
+        "name": "High Sierra FestivAle"
+        "abv": "5.2"
+        "name": "Golden or Blonde Ale"
+        "description": "Golden or Blonde ales are straw to golden blonde in color. They have a crisp, dry palate, light to medium body, and light malt sweetness. Low to medium hop aroma may be present but does not dominate. Bitterness is low to medium. Fruity esters may be perceived but do not predominate. Diacetyl should not be perceived. Chill haze should be absent."
+        Examples below in order to see page layout
+        -->
+        <div class="col">
+          <img src="https://brewerydb-images.s3.amazonaws.com/beer/4U8cc8/upload_PzZ10B-contentAwareMedium.png" class="img-fluid"
+            alt="Responsive image">
+          <h4 class="text-center" style="font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon">High
+            Sierra FestivAle</h4>
+          <p class="text-center" style="font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon">abv:
+            5.2</h5>
+            <div class="show text-center">Golden or Blonde Ale
+          </p>
+          <span class="showtext">Golden or Blonde ales are straw to golden blonde in color. They have a crisp, dry
+            palate, light to medium body, and light malt sweetness. Low to medium hop aroma may be present but does not
+            dominate. Bitterness is low to medium. Fruity esters may be perceived but do not predominate. Diacetyl
+            should not be perceived. Chill haze should be absent.</span>
+        </div>
+        </div>
+        <div class="col">
+            <img src="https://brewerydb-images.s3.amazonaws.com/beer/4U8cc8/upload_PzZ10B-contentAwareMedium.png" class="img-fluid"
+              alt="Responsive image">
+            <h4 class="text-center" style="font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon">High
+              Sierra FestivAle</h4>
+            <p class="text-center" style="font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon">abv:
+              5.2</h5>
+              <div class="show text-center">Golden or Blonde Ale
+            </p>
+            <span class="showtext">Golden or Blonde ales are straw to golden blonde in color. They have a crisp, dry
+              palate, light to medium body, and light malt sweetness. Low to medium hop aroma may be present but does not
+              dominate. Bitterness is low to medium. Fruity esters may be perceived but do not predominate. Diacetyl
+              should not be perceived. Chill haze should be absent.</span>
+          </div>
+          </div>
+          <div class="col">
+              <img src="https://brewerydb-images.s3.amazonaws.com/beer/4U8cc8/upload_PzZ10B-contentAwareMedium.png" class="img-fluid"
+                alt="Responsive image">
+              <h4 class="text-center" style="font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon">High
+                Sierra FestivAle</h4>
+              <p class="text-center" style="font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon">abv:
+                5.2</h5>
+                <div class="show text-center">Golden or Blonde Ale
+              </p>
+              <span class="showtext">Golden or Blonde ales are straw to golden blonde in color. They have a crisp, dry
+                palate, light to medium body, and light malt sweetness. Low to medium hop aroma may be present but does not
+                dominate. Bitterness is low to medium. Fruity esters may be perceived but do not predominate. Diacetyl
+                should not be perceived. Chill haze should be absent.</span>
+            </div>
+            </div>
+            <div class="col">
+                <img src="https://brewerydb-images.s3.amazonaws.com/beer/4U8cc8/upload_PzZ10B-contentAwareMedium.png" class="img-fluid"
+                  alt="Responsive image">
+                <h4 class="text-center" style="font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon">High
+                  Sierra FestivAle</h4>
+                <p class="text-center" style="font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon">abv:
+                  5.2</h5>
+                  <div class="show text-center">Golden or Blonde Ale
+                </p>
+                <span class="showtext">Golden or Blonde ales are straw to golden blonde in color. They have a crisp, dry
+                  palate, light to medium body, and light malt sweetness. Low to medium hop aroma may be present but does not
+                  dominate. Bitterness is low to medium. Fruity esters may be perceived but do not predominate. Diacetyl
+                  should not be perceived. Chill haze should be absent.</span>
+              </div>
+              </div>
+      </div>
+<div class ="row jumbotron" style="background:transparent url('assets/images/barrel.jpeg') no-repeat center center /cover; color: white; font-family: 'Fjalla One', sans-serif; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">
+  <h3 class="text-left" style="padding-right: 30px">Find a local brewery!</h3>
+  <button type="button" class="btn btn-light">I like beer.</button>
+
+</div>
+<!-- <div id ="brewery"> -->
+<!-- If you like we can reuse the div above that we used to display the ales or create a similair one below.  It looks like for google maps we can pull the image of the brewery, the address and their hours and display similairly to the beers above. -->
+<!-- </div> -->
+    
+  </div>
+
+  <!-- JavaScript -->
+
+
+</body>
+
+</html>
