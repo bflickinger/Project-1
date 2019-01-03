@@ -111,14 +111,33 @@
 <script>
   // Initialize Firebase
   var config = {
-    apiKey: "AIzaSyAtVGEwccVonfqIE8VX8acDS_VyAVr-A7s",
-    authDomain: "project-1-group.firebaseapp.com",
-    databaseURL: "https://project-1-group.firebaseio.com",
-    projectId: "project-1-group",
-    storageBucket: "project-1-group.appspot.com",
-    messagingSenderId: "883397079139"
+    apiKey: "AIzaSyANPVjyDPOaf__7rBLObpggPLvD8hxgJ2o",
+    authDomain: "group-project-1-e214d.firebaseapp.com",
+    databaseURL: "https://group-project-1-e214d.firebaseio.com",
+    projectId: "group-project-1-e214d",
+    storageBucket: "group-project-1-e214d.appspot.com",
+    messagingSenderId: "734613753940"
   };
   firebase.initializeApp(config);
+    // Gets a reference to the database
+    // --------------------------------------------------------------------------------
+    var database = firebase.database();
+    var clickCounter = 0;
+    // FUNCTIONS + EVENTS
+    // --------------------------------------------------------------------------------
+    $("#search-button").on("click", function() {
+      clickCounter++;
+      database.ref().set({
+        clickCount: clickCounter
+
+      });
+    });
+  
+    database.ref().on("value", function(snapshot) {
+      console.log(snapshot.val());
+      $("#click-value").text(snapshot.val().clickCount);
+      clickCounter = snapshot.val().clickCount;
+    });
 </script>
 
 look at all this code how exciting is all of this!
