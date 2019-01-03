@@ -2,11 +2,9 @@
 $(document).on("click", "#search-button", function (event) {
     event.preventDefault();
     var searchTerm = "search?q=" + $("#search-field").val().trim();
-    console.log($("#search-field").val().trim());
     if ($("#search-field").val().trim() != "") {
         var queryURL = "https://sandbox-api.brewerydb.com/v2/" + searchTerm + "/&key=7380497d0148ba2e8a2b2d6ba7362a03";
         $("#brews-carousel").empty();
-        console.log(queryURL);
         $.ajax({
             url: queryURL,
             method: "GET"
@@ -27,16 +25,7 @@ $(document).on("click", "#search-button", function (event) {
                                 $("<img>").attr({
                                     "class": "d-block col-3 img-fluid",
                                     "src": response.data[i].labels.medium
-                                }),
-                                $("<h6>").attr({
-                                    "class" : "text-center",
-                                    "id" : "beer-name",
-                                    "style" : "font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon"}).text(response.data[i].name),
-                                // $("<h5>").attr({
-                                //     "class" : "text-center",
-                                //     "style" : "font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon"}).text(response.data[i].style.abvMax),
-                                // $("<div>").attr("class","show text-center").text(response.data[i].style.name)
-                                // $("<span>").attr("class","showtext").text(response.data[1].style.description)
+                                })
                             );
                             $("#brews-carousel").append(beerItem);
                         };
@@ -47,6 +36,24 @@ $(document).on("click", "#search-button", function (event) {
             });
     }
 });
+
+var beerArray = [];
+
+function randomBeer() {
+    var randomBeerURL = "https://sandbox-api.brewerydb.com/v2/beer/random/?key=7380497d0148ba2e8a2b2d6ba7362a03";
+    for(let i = 0; i < 4; i++) {
+        $.ajax({
+            url: randomBeerURL,
+            method: "GET"
+        })
+            .then(function (response) {
+                console.log(response.data.id);
+                beerArray[i] = response.data.id;
+                console.log(beerArray[i]);
+            });
+        }
+    console.log(beerArray);
+}
 
 $(document).on("click", "#find-button", function (event) {
     event.preventDefault();
@@ -159,3 +166,4 @@ function drawCarousel() {
 }
 
 drawCarousel();
+randomBeer();

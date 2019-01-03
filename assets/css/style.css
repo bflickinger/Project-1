@@ -111,7 +111,8 @@ li:nth-child(odd) {
   transform: translateX(0);
 }
 
+/*custom css*/
 #beer-name {
   position : relative;
-  
+
 }
