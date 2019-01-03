@@ -13,6 +13,7 @@
   <!-- Moment.js Reference -->
   <link href="https://fonts.googleapis.com/css?family=Fjalla+One" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
 </head>
 
@@ -26,37 +27,53 @@
 
     <!-- Jumbotron -->
     <div class="jumbotron" style="background:transparent url('assets/images/beer.jpeg') no-repeat center center /cover; color: white; font-family: 'Fjalla One', sans-serif; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; ">
-      <h3 class="text-left">What type of beer do you like?</h3>
+      <div class="row">
+          <div class="col-6">
+      <h3 class="text-left" style="margin-bottom: 15px">What type of beer do you like?</h3>
       <h4 class="text-left">We will try to match you with some beer you may enjoy.</h4>
       <br>
-      <input class="form-control form-control-lg" id="search-field" type="text" style="align-items: center" placeholder="Ale"
+          </div>
+          <div class="col-6">
+      <input class="form-control form-control-lg" id="search-field" type="text" style="align-items: center;  width: 80%"placeholder="Ale">
       <br>
-      <button type="button" class="btn btn-light" id="search-button" style="align-items: center">Beer Me!</button>
+      <button type="button" class="beerMe btn btn-light" id="search-button" style="align-items: center; margin-top:10px;  ">Beer Me!</button>  
+    </div>
+    </div>
     </div>
 
     <div class="row" id="brews-container">
-         <div class="col">
-          <img src="https://brewerydb-images.s3.amazonaws.com/beer/4U8cc8/upload_PzZ10B-contentAwareMedium.png" class="img-fluid"
-            alt="Responsive image">
-          <h4 class="text-center" style="font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon">High
-            Sierra FestivAle</h4>
-          <p class="text-center" style="font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon">abv:
-            5.2</h5>
-            <div class="show text-center">Golden or Blonde Ale
-          </p>
-          <span class="showtext">Golden or Blonde ales are straw to golden blonde in color. They have a crisp, dry
-            palate, light to medium body, and light malt sweetness. Low to medium hop aroma may be present but does not
-            dominate. Bitterness is low to medium. Fruity esters may be perceived but do not predominate. Diacetyl
-            should not be perceived. Chill haze should be absent.</span>
-        </div>
-        </div>
         <div class="col">
             <img src="https://brewerydb-images.s3.amazonaws.com/beer/4U8cc8/upload_PzZ10B-contentAwareMedium.png" class="img-fluid"
               alt="Responsive image">
+              <div class="middle">
+                  <button type="button" class="thumbsup"> 
+                      <i class="far fa-thumbs-up"></i>
+                  </button>
+                </div>
             <h4 class="text-center" style="font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon">High
               Sierra FestivAle</h4>
             <p class="text-center" style="font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon">abv:
-              5.2</h5>
+              5.2</p>
+            <div class="show text-center">Golden or Blonde Ale
+            
+            <span class="showtext">Golden or Blonde ales are straw to golden blonde in color. They have a crisp, dry
+              palate, light to medium body, and light malt sweetness. Low to medium hop aroma may be present but does not
+              dominate. Bitterness is low to medium. Fruity esters may be perceived but do not predominate. Diacetyl
+              should not be perceived. Chill haze should be absent.</span>
+          </div>
+          </div>
+        <div class="col">
+            <img src="https://brewerydb-images.s3.amazonaws.com/beer/4U8cc8/upload_PzZ10B-contentAwareMedium.png" class="img-fluid"
+              alt="Responsive image">
+              <div class="middle">
+                  <button type="button" class="thumbsup btn btn-default">
+                      <i class="far fa-thumbs-up"></i>
+                  </button>
+                </div>
+            <h4 class="text-center" style="font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon">High
+              Sierra FestivAle</h4>
+            <p class="text-center" style="font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon">abv:
+              5.2
               <div class="show text-center">Golden or Blonde Ale
             </p>
             <span class="showtext">Golden or Blonde ales are straw to golden blonde in color. They have a crisp, dry
@@ -68,10 +85,15 @@
           <div class="col">
               <img src="https://brewerydb-images.s3.amazonaws.com/beer/4U8cc8/upload_PzZ10B-contentAwareMedium.png" class="img-fluid"
                 alt="Responsive image">
+                <div class="middle">
+                    <button type="button" class="thumbsup btn btn-default">
+                        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> 
+                    </button>
+                  </div>
               <h4 class="text-center" style="font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon">High
                 Sierra FestivAle</h4>
               <p class="text-center" style="font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon">abv:
-                5.2</h5>
+                5.2
                 <div class="show text-center">Golden or Blonde Ale
               </p>
               <span class="showtext">Golden or Blonde ales are straw to golden blonde in color. They have a crisp, dry
@@ -83,10 +105,15 @@
             <div class="col">
                 <img src="https://brewerydb-images.s3.amazonaws.com/beer/4U8cc8/upload_PzZ10B-contentAwareMedium.png" class="img-fluid"
                   alt="Responsive image">
+                  <div class="middle">
+                      <button type="button" class="thumbsup btn btn-default">
+                          <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> 
+                      </button>
+                    </div>
                 <h4 class="text-center" style="font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon">High
                   Sierra FestivAle</h4>
                 <p class="text-center" style="font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon">abv:
-                  5.2</h5>
+                  5.2
                   <div class="show text-center">Golden or Blonde Ale
                 </p>
                 <span class="showtext">Golden or Blonde ales are straw to golden blonde in color. They have a crisp, dry

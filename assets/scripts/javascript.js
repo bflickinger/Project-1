@@ -25,13 +25,14 @@ $(document).on("click","#search-button", function(event) {
                             "class" : "img-fluid",
                             "alt" : "Responsive image"}),
                         $("<h4>").attr({
+                            "src" : response.data[i].
                             "class" : "text-center",
                             "style" : "font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon"}).text(response.data[i].name),
-                        $("<h5>").attr({
+                        $("<p>").attr({
                             "class" : "text-center",
                             "style" : "font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon"}).text(response.data[i].style.abvMax),
-                        $("<div>").attr("class","show text-center").text(response.data[i].style.name)
-                        // $("<span>").attr("class","showtext").text(response.data[1].style.description)
+                        $("<div class='show text-center'><span class='showtext'>" + text(response.data[1].style.description) + "</span></div>").attr("class","show text-center").text(response.data[i].style.name)
+                            $("<span>").attr("class","showtext").
                         );
                         $("#brews-container").append(beerCol);
                     }
