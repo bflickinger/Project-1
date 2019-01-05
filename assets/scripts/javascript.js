@@ -90,7 +90,7 @@ function getRandomBeer() {
                     method: "GET"
                 })
                     .then(function(response2) {
-                        if(response2.data.labels && (fourRandosFound<4)){
+                        if(response2.data.labels && (fourRandosFound<8)){
                             if (firstBeer) {
                                 carouselItem = "carousel-item active";
                                 firstBeer = false;
@@ -107,7 +107,7 @@ function getRandomBeer() {
                             $("#brews-carousel").append(beerItem);
                             fourRandosFound++;
                             console.log("Random Beer with label found! Count is " + fourRandosFound);
-                            if (fourRandosFound==4) {
+                            if (fourRandosFound==8) {
                                 drawCarousel();
                             }
                         }
