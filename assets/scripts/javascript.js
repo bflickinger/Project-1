@@ -1,3 +1,68 @@
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyANPVjyDPOaf__7rBLObpggPLvD8hxgJ2o",
+    authDomain: "group-project-1-e214d.firebaseapp.com",
+    databaseURL: "https://group-project-1-e214d.firebaseio.com",
+    projectId: "group-project-1-e214d",
+    storageBucket: "group-project-1-e214d.appspot.com",
+    messagingSenderId: "734613753940"
+};
+firebase.initializeApp(config);
+// Gets a reference to the database
+// --------------------------------------------------------------------------------
+var database = firebase.database();
+var clickCounter = 0;
+// FUNCTIONS + EVENTS
+// --------------------------------------------------------------------------------
+$("#search-button").on("click", function () {
+    var beer = $("#search-field").val().trim();
+    // console.log(beer)
+    clickCounter++;
+    // database.ref().set({
+    //   clickCount: clickCounter
+    // });
+    database.ref(beer).set({
+        // clickCount: clickCounter
+        beer: "search-field"
+        // clickCounter: clickCounter
+    })
+});
+
+database.ref().on("value", function (snapshot) {
+    console.log(snapshot.val());
+    $("#click-value").text(snapshot.val().clickCount);
+    clickCounter = snapshot.val().clickCount;
+});
+
+// // Initialize Firebase
+// var config = {
+//     apiKey: "AIzaSyANPVjyDPOaf__7rBLObpggPLvD8hxgJ2o",
+//     authDomain: "group-project-1-e214d.firebaseapp.com",
+//     databaseURL: "https://group-project-1-e214d.firebaseio.com",
+//     projectId: "group-project-1-e214d",
+//     storageBucket: "group-project-1-e214d.appspot.com",
+//     messagingSenderId: "734613753940"
+// };
+// firebase.initializeApp(config);
+// // Gets a reference to the database
+// // --------------------------------------------------------------------------------
+// var database = firebase.database();
+// var clickCounter = 0;
+// // FUNCTIONS + EVENTS
+// // --------------------------------------------------------------------------------
+// $("#thumbsup").on("click", function () {
+//     clickCounter++;
+//     database.ref().set({
+//         clickCount: clickCounter
+//     });
+// });
+
+// database.ref().on("value", function (snapshot) {
+//     console.log(snapshot.val());
+//     $("#click-value").text(snapshot.val().clickCount);
+//     clickCounter = snapshot.val().clickCount;
+// });
+
 // Search for beers 
 $(document).on("click", "#search-button", function (event) {
     event.preventDefault();
@@ -45,7 +110,7 @@ function getRandomBeer() {
     var firstBeer = true;
     var fourRandosFound = 0;
     $("#brews-carousel").empty();
-    for(let i = 1; i < 21; i++) {
+    for (let i = 1; i < 31; i++) {
         console.log(fourRandosFound);
         $.ajax({
             url: getRandomBeerURL,
@@ -57,8 +122,8 @@ function getRandomBeer() {
                     url: uniqueBeer,
                     method: "GET"
                 })
-                    .then(function(response2) {
-                        if(response2.data.labels && (fourRandosFound<8)){
+                    .then(function (response2) {
+                        if (response2.data.labels && (fourRandosFound < 8)) {
                             if (firstBeer) {
                                 carouselItem = "carousel-item active";
                                 firstBeer = false;
@@ -75,24 +140,24 @@ function getRandomBeer() {
                             $("#brews-carousel").append(beerItem);
                             fourRandosFound++;
                             console.log("Random Beer with label found! Count is " + fourRandosFound);
-                            if (fourRandosFound==8) {
+                            if (fourRandosFound == 8) {
                                 drawCarousel();
                             }
                         }
                     });
-            }); 
-        }
+            });
+    }
 }
 
 //Opens new html page for google places.
 
 function isValidUSZip(sZip) {
     return /^\d{5}(-\d{4})?$/.test(sZip);
- }
+}
 
 $("#find-button").click(function () {
     tempZip = $("#zip-field").val().trim();
-    if(isValidUSZip(tempZip)) {
+    if (isValidUSZip(tempZip)) {
         console.log("valid zip code!");
         window.location = "localbreweries.html";
     } else {
@@ -104,16 +169,16 @@ $("#find-button").click(function () {
 var windowLoc = $(location).attr('pathname');
 console.log(windowLoc);
 
-$(document).ready(function(){
-    if(/index.html/.test(window.location.href)) {
-    getRandomBeer();
+$(document).ready(function () {
+    if (/index.html/.test(window.location.href)) {
+        getRandomBeer();
     }
 });
 // Google places code to create map and markers.
 var latLongString;
 
 function getLatLngByZipcode(zipcode) {
-    var latLongQuery ="https://maps.googleapis.com/maps/api/geocode/json?address="+ zipcode +"&key=AIzaSyAxR6ZRJI9Wrw_dljpvfsR2Ic35iF-3OPo"
+    var latLongQuery = "https://maps.googleapis.com/maps/api/geocode/json?address=" + zipcode + "&key=AIzaSyAxR6ZRJI9Wrw_dljpvfsR2Ic35iF-3OPo"
     $.ajax({
         url: latLongQuery,
         method: "GET",
@@ -122,13 +187,13 @@ function getLatLngByZipcode(zipcode) {
             longitude = response.results[0].geometry.location.lng;
             console.log(latitude);
             console.log(longitude);
-            answer = {latitude,longitude};
+            answer = { latitude, longitude };
             initMap(answer);
         }
     })
 }
 
-function handleResponse (answer) {
+function handleResponse(answer) {
     latLongString = answer;
     console.log(latLongString);
 }
@@ -139,72 +204,72 @@ getLatLngByZipcode(85226);
 var map;
 
 function initMap(customLocation) {
-    if(/localbreweries.html/.test(window.location.href)){
-    // Create the map.
+    if (/localbreweries.html/.test(window.location.href)) {
+        // Create the map.
 
-    console.log(customLocation);
-    var customLocation = { lat: 33.423409, lng: -111.940412 };
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: customLocation,
+        console.log(customLocation);
+        var customLocation = { lat: 33.423409, lng: -111.940412 };
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: customLocation,
 
-        zoom: 17
-    });
-
-    //   Create the places service.
-    var service = new google.maps.places.PlacesService(map);
-    var getNextPage = null;
-    var moreButton = document.getElementById('more');
-    moreButton.onclick = function () {
-        moreButton.disabled = true;
-        if (getNextPage) getNextPage();
-    };
-
-    // Perform a nearby search.
-    service.nearbySearch(
-
-        { location: customLocation, radius: 500, type: ['bar'] },
-
-        function (results, status, pagination) {
-            if (status !== 'OK') return;
-
-            createMarkers(results);
-            moreButton.disabled = !pagination.hasNextPage;
-            getNextPage = pagination.hasNextPage && function () {
-                pagination.nextPage();
-            };
+            zoom: 17
         });
+
+        //   Create the places service.
+        var service = new google.maps.places.PlacesService(map);
+        var getNextPage = null;
+        var moreButton = document.getElementById('more');
+        moreButton.onclick = function () {
+            moreButton.disabled = true;
+            if (getNextPage) getNextPage();
+        };
+
+        // Perform a nearby search.
+        service.nearbySearch(
+
+            { location: customLocation, radius: 500, type: ['bar'] },
+
+            function (results, status, pagination) {
+                if (status !== 'OK') return;
+
+                createMarkers(results);
+                moreButton.disabled = !pagination.hasNextPage;
+                getNextPage = pagination.hasNextPage && function () {
+                    pagination.nextPage();
+                };
+            });
 
     }
 }
 
-    function createMarkers(places) {
-        var bounds = new google.maps.LatLngBounds();
-        var placesList = document.getElementById('places');
+function createMarkers(places) {
+    var bounds = new google.maps.LatLngBounds();
+    var placesList = document.getElementById('places');
 
-        for (var i = 0, place; place = places[i]; i++) {
-            var image = {
-                url: place.icon,
-                size: new google.maps.Size(71, 71),
-                origin: new google.maps.Point(0, 0),
-                anchor: new google.maps.Point(17, 34),
-                scaledSize: new google.maps.Size(25, 25)
-            };
+    for (var i = 0, place; place = places[i]; i++) {
+        var image = {
+            url: place.icon,
+            size: new google.maps.Size(71, 71),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(17, 34),
+            scaledSize: new google.maps.Size(25, 25)
+        };
 
-            var marker = new google.maps.Marker({
-                map: map,
-                icon: image,
-                title: place.name,
-                position: place.geometry.location
-            });
+        var marker = new google.maps.Marker({
+            map: map,
+            icon: image,
+            title: place.name,
+            position: place.geometry.location
+        });
 
-            var li = document.createElement('li');
-            li.textContent = place.name;
-            placesList.appendChild(li);
+        var li = document.createElement('li');
+        li.textContent = place.name;
+        placesList.appendChild(li);
 
-            bounds.extend(place.geometry.location);
-        }
-        map.fitBounds(bounds);
+        bounds.extend(place.geometry.location);
     }
+    map.fitBounds(bounds);
+}
 
 // Bootstrap carousel with multiple slides and interval based update.
 
