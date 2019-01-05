@@ -2,6 +2,7 @@
 $(document).on("click","#search-button", function(event) {
     event.preventDefault();
     var searchTerm = "search?q=" + $("#search-field").val().trim();
+    console.log(" HEY THIS IS WHAT IS INSIDE THE INPUT BOX " + searchTerm);
     console.log($("#search-field").val().trim());
     if ($("#search-field").val().trim() != ""){
         var queryURL = "https://sandbox-api.brewerydb.com/v2/" + searchTerm + "/&key=7380497d0148ba2e8a2b2d6ba7362a03";
