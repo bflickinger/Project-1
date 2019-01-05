@@ -28,18 +28,29 @@ $(document).on("click", "#search-button", function (event) {
                                     "class": "d-block col-3 img-fluid",
                                     "src": response.data[i].labels.medium
                                 }),
-                                $("<h6>").attr({
-                                    "class" : "text-center",
-                                    "id" : "beer-name",
-                                    "style" : "font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon"}).text(response.data[i].name),
-                                // $("<h5>").attr({
+                                // $("<h4>").attr({
                                 //     "class" : "text-center",
+                                //     "src": response.data[i].nameDisplay,
+                                //     "id" : "beer-name",
+                                //     "style" : "font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon"}).text(response.data[i].name),
+                                // $("<p>").attr({
+                                //     "class" : "text-center",
+                                //     "src": response.data[i].abv,
                                 //     "style" : "font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon"}).text(response.data[i].style.abvMax),
+                                // $("<div class='show text-center'><span class='showtext'>" + text(response.data[1].style.description) + "</span></div>").attr("class","show text-center").text(response.data[i].style.name)
                                 // $("<div>").attr("class","show text-center").text(response.data[i].style.name)
                                 // $("<span>").attr("class","showtext").text(response.data[1].style.description)
                             );
+                            var modal = $("<div>").addClass(caroselItemModal).append(
+                                $("<div>"),attr({
+                                    "class": "modal fade",
+                                    ""
+                                })
+                            )
                             $("#brews-carousel").append(beerItem);
+                            $("#brews-carosel").append(modal)
                         };
+                        
                     };
                     drawCarousel();
                     console.log("carousel function call");
