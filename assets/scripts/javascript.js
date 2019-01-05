@@ -8,6 +8,7 @@ $(document).on("click", "#search-button", function (event) {
         $.ajax({
             url: queryURL,
             method: "GET"
+
         })
             .then(function (response) {
                 if (response.data.length > 0) {
@@ -34,6 +35,37 @@ $(document).on("click", "#search-button", function (event) {
                     drawCarousel();
                 };
             });
+
+//             })
+//         .then(function(response) {
+//             console.log(response);
+//             if (response.totalResults >10){
+//                 var beerArray = [];
+//                 for (let i=0; i<19; i++){
+//                     beerArray[i] = response.data[i].id;
+//                     if ("labels" in response.data[i]){
+//                         console.log("has label");
+//                         var beerCol = $("<div>").append(
+//                         $("<img>").attr({
+//                             "src" : response.data[i].labels.medium,
+//                             "class" : "img-fluid",
+//                             "alt" : "Responsive image"}),
+//                         $("<h4>").attr({
+//                             "src" : response.data[i].
+//                             "class" : "text-center",
+//                             "style" : "font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon"}).text(response.data[i].name),
+//                         $("<p>").attr({
+//                             "class" : "text-center",
+//                             "style" : "font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon"}).text(response.data[i].style.abvMax),
+//                         $("<div class='show text-center'><span class='showtext'>" + text(response.data[1].style.description) + "</span></div>").attr("class","show text-center").text(response.data[i].style.name)
+//                             $("<span>").attr("class","showtext").
+//                         );
+//                         $("#brews-container").append(beerCol);
+//                     }
+//                 }
+//             }
+//         });
+
     }
 });
 
