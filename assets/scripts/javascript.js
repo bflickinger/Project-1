@@ -8,7 +8,6 @@ $(document).on("click", "#search-button", function (event) {
         $.ajax({
             url: queryURL,
             method: "GET"
-
         })
             .then(function (response) {
                 if (response.data.length > 0) {
@@ -35,37 +34,6 @@ $(document).on("click", "#search-button", function (event) {
                     drawCarousel();
                 };
             });
-
-//             })
-//         .then(function(response) {
-//             console.log(response);
-//             if (response.totalResults >10){
-//                 var beerArray = [];
-//                 for (let i=0; i<19; i++){
-//                     beerArray[i] = response.data[i].id;
-//                     if ("labels" in response.data[i]){
-//                         console.log("has label");
-//                         var beerCol = $("<div>").append(
-//                         $("<img>").attr({
-//                             "src" : response.data[i].labels.medium,
-//                             "class" : "img-fluid",
-//                             "alt" : "Responsive image"}),
-//                         $("<h4>").attr({
-//                             "src" : response.data[i].
-//                             "class" : "text-center",
-//                             "style" : "font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon"}).text(response.data[i].name),
-//                         $("<p>").attr({
-//                             "class" : "text-center",
-//                             "style" : "font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon"}).text(response.data[i].style.abvMax),
-//                         $("<div class='show text-center'><span class='showtext'>" + text(response.data[1].style.description) + "</span></div>").attr("class","show text-center").text(response.data[i].style.name)
-//                             $("<span>").attr("class","showtext").
-//                         );
-//                         $("#brews-container").append(beerCol);
-//                     }
-//                 }
-//             }
-//         });
-
     }
 });
 
@@ -116,26 +84,21 @@ function getRandomBeer() {
         }
 }
 
-$(document).on("click", "#find-button", function (event) {
-    event.preventDefault();
-    var searchTerm2 = "search?q=" + $("#search-field").val().trim();
-    // Add geolocate and/or zip code box for search.  
-    var queryURL2 = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=breweries+85226&sensor=false&key=AIzaSyBu36ZRbWoTi-gl0GbmDWXp6oJ4H30R7x4";
-    console.log(queryURL2);
-    $.ajax({
-        url: queryURL2,
-        method: "GET"
-    })
-        .then(function (response) {
-            console.log(response);
-        });
-});
-
-
 //Opens new html page for google places.
 
+function isValidUSZip(sZip) {
+    return /^\d{5}(-\d{4})?$/.test(sZip);
+ }
+
 $("#find-button").click(function () {
-    window.location = "localbreweries.html";
+    tempZip = $("#zip-field").val().trim();
+    if(isValidUSZip(tempZip)) {
+        console.log("valid zip code!");
+        window.location = "localbreweries.html";
+    } else {
+        console.log("not a valid zip code");
+        $('#zipModal').modal('toggle');
+    }
 });
 
 var windowLoc = $(location).attr('pathname');
@@ -214,8 +177,6 @@ function initMap(customLocation) {
     }
 }
 
-
-
     function createMarkers(places) {
         var bounds = new google.maps.LatLngBounds();
         var placesList = document.getElementById('places');
@@ -244,7 +205,6 @@ function initMap(customLocation) {
         }
         map.fitBounds(bounds);
     }
-
 
 // Bootstrap carousel with multiple slides and interval based update.
 
