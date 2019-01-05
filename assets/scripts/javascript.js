@@ -1,18 +1,16 @@
-
+// Search for beers 
 $(document).on("click", "#search-button", function (event) {
     event.preventDefault();
     var searchTerm = "search?q=" + $("#search-field").val().trim();
-    console.log($("#search-field").val().trim());
     if ($("#search-field").val().trim() != "") {
         var queryURL = "https://sandbox-api.brewerydb.com/v2/" + searchTerm + "/&key=7380497d0148ba2e8a2b2d6ba7362a03";
         $("#brews-carousel").empty();
-        console.log(queryURL);
         $.ajax({
             url: queryURL,
             method: "GET"
         })
             .then(function (response) {
-                if (response.totalResults > 0) {
+                if (response.data.length > 0) {
                     var carouselItem = "";
                     var firstBeer = true;
                     for (let i = 0; i < response.data.length; i++) {
@@ -26,27 +24,67 @@ $(document).on("click", "#search-button", function (event) {
                             var beerItem = $("<div>").addClass(carouselItem).append(
                                 $("<img>").attr({
                                     "class": "d-block col-3 img-fluid",
-                                    "src": response.data[i].labels.medium
-                                }),
-                                $("<h6>").attr({
-                                    "class" : "text-center",
-                                    "id" : "beer-name",
-                                    "style" : "font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon"}).text(response.data[i].name),
-                                // $("<h5>").attr({
-                                //     "class" : "text-center",
-                                //     "style" : "font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon"}).text(response.data[i].style.abvMax),
-                                // $("<div>").attr("class","show text-center").text(response.data[i].style.name)
-                                // $("<span>").attr("class","showtext").text(response.data[1].style.description)
+                                    "src": response.data[i].labels.medium,
+                                    "data": response.data[i].id
+                                })
                             );
                             $("#brews-carousel").append(beerItem);
                         };
                     };
                     drawCarousel();
-                    console.log("carousel function call");
                 };
             });
     }
 });
+
+//Gets 4 random beers
+
+var beerArray = [];
+
+function getRandomBeer() {
+    var getRandomBeerURL = "https://sandbox-api.brewerydb.com/v2/beer/random/?key=7380497d0148ba2e8a2b2d6ba7362a03";
+    var carouselItem = "";
+    var firstBeer = true;
+    var fourRandosFound = 0;
+    $("#brews-carousel").empty();
+    for(let i = 1; i < 11; i++) {
+        console.log(fourRandosFound);
+        $.ajax({
+            url: getRandomBeerURL,
+            method: "GET"
+        })
+            .then(function (response) {
+                var uniqueBeer = "https://sandbox-api.brewerydb.com/v2/beer/" + response.data.id + "/?key=7380497d0148ba2e8a2b2d6ba7362a03";
+                $.ajax({
+                    url: uniqueBeer,
+                    method: "GET"
+                })
+                    .then(function(response2) {
+                        if(response2.data.labels && (fourRandosFound<4)){
+                            if (firstBeer) {
+                                carouselItem = "carousel-item active";
+                                firstBeer = false;
+                            } else {
+                                carouselItem = "carousel-item";
+                            }
+                            var beerItem = $("<div>").addClass(carouselItem).append(
+                                $("<img>").attr({
+                                    "class": "d-block col-3 img-fluid",
+                                    "src": response2.data.labels.medium,
+                                    "data": response2.data.id
+                                })
+                            );
+                            $("#brews-carousel").append(beerItem);
+                            fourRandosFound++;
+                            console.log("Random Beer with label found! Count is " + fourRandosFound);
+                            if (fourRandosFound==4) {
+                                drawCarousel();
+                            }
+                        }
+                    });
+            }); 
+        }
+}
 
 $(document).on("click", "#find-button", function (event) {
     event.preventDefault();
@@ -63,19 +101,47 @@ $(document).on("click", "#find-button", function (event) {
         });
 });
 
+//Opens new html page for google places.
+
 $('#find-button').click(function () {
     window.location = 'localbreweries.html';
 });
 
-// Google places code to create.
+$(document).ready(function(){
+    getRandomBeer();
+});
+// Google places code to create map and markers.
+var latLongString;
+
+function getLatLngByZipcode(zipcode) {
+    var latLongQuery ="https://maps.googleapis.com/maps/api/geocode/json?address="+ zipcode +"&key=AIzaSyAxR6ZRJI9Wrw_dljpvfsR2Ic35iF-3OPo"
+    $.ajax({
+        url: latLongQuery,
+        method: "GET",
+        success: function (response) {
+            latitude = response.results[0].geometry.location.lat;
+            longitude = response.results[0].geometry.location.lng;
+            answer = "lat: " + latitude +", lng: " + longitude;
+            handleResponse(answer);
+        }
+    })
+}
+
+function handleResponse (answer) {
+    latLongString = answer;
+    console.log(latLongString);
+}
+
+getLatLngByZipcode(85226);
+console.log(latLongString);
 
 var map;
 
 function initMap() {
     // Create the map.
-    var tempe = { lat: 33.423409, lng: -111.940412 };
+    var customLocation = { lat: 33.423409, lng: -111.940412 };
     map = new google.maps.Map(document.getElementById('map'), {
-        center: tempe,
+        center: customLocation,
         zoom: 17
     });
 
@@ -90,7 +156,7 @@ function initMap() {
 
     // Perform a nearby search.
     service.nearbySearch(
-        { location: tempe, radius: 500, type: ['restaurant'] },
+        { location: customLocation, radius: 500, type: ['bar'] },
         function (results, status, pagination) {
             if (status !== 'OK') return;
 
@@ -131,10 +197,10 @@ function createMarkers(places) {
     map.fitBounds(bounds);
 }
 
-// Multiple slides with interval based update.
+// Bootstrap carousel with multiple slides and interval based update.
 
 function drawCarousel() {
-    console.log("draw carousel first")
+    // console.log("draw carousel first")
     $('#recipeCarousel').carousel({
         interval: 50000
     })
@@ -144,7 +210,7 @@ function drawCarousel() {
         if (!next.length) {
             next = $(this).siblings(':first');
         }
-        console.log("draw carousel")
+        // console.log("draw carousel")
         next.children(':first-child').clone().appendTo($(this));
 
         for (var i = 0; i < 2; i++) {
