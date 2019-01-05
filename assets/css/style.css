@@ -1,5 +1,5 @@
 
-.show {
+/* .show {
     font-family: 'Fjalla One', sans-serif; 
     color:rgb(248, 238, 147); 
     position: relative; 
@@ -21,7 +21,9 @@
 
 .show:hover .showtext {
     visibility: visible;
-}
+} */
+
+/*Google Places CSS*/
 
 #map {
   height: 100%;
@@ -126,91 +128,3 @@ li:nth-child(odd) {
     padding-left: 80px;
   
 }
-
-
-/* 
-  #right-panel i {
-    font-size: 12px;
-  }
-  #right-panel {
-    font-family: Arial, Helvetica, sans-serif;
-    position: absolute;
-    right: 5px;
-    top: 60%;
-    margin-top: -195px;
-    height: 330px;
-    width: 200px;
-    padding: 5px;
-    z-index: 5;
-    border: 1px solid #999;
-    background: #fff;
-  }
-  h2 {
-    font-size: 22px;
-    margin: 0 0 5px 0;
-  }
-  ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    height: 271px;
-    width: 200px;
-    overflow-y: scroll;
-  }
-  li {
-    background-color: #f1f1f1;
-    padding: 10px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-  }
-  li:nth-child(odd) {
-    background-color: #fcfcfc;
-  }
-  #more {
-    width: 100%;
-    margin: 5px 0 0 0;
-  } 
-
-.col {
-    position: relative;
-}
-
-.img-fluid {
-    opacity: 1;
-    display: block;
-    width: 100%;
-    height: auto;
-    transition: .5s ease;
-    backface-visibility: hidden;
-}
-
-.middle {
-    transition: .5s ease;
-    opacity: 0;
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-
-  }
-  
-  .col:hover .image {
-    opacity: 0.3;
-  }
-  
-  .col:hover .middle {
-    opacity: 1;
-  } */
-
-  /* .thumbsup {
-    background-image: url(beer-button.png);
-    background-color: whitesmoke;
-    background-repeat: no-repeat;
-    background-size: 20px 20px;
-    height: 40px; 
-    width: 20px;
-  } */ */
-
-
