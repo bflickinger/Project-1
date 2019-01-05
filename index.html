@@ -137,10 +137,25 @@
       console.log(snapshot.val());
       $("#click-value").text(snapshot.val().clickCount);
       clickCounter = snapshot.val().clickCount;
+
+    var database = firebase.database();
+    var clickCounter = 0;
+    // FUNCTIONS + EVENTS
+    // --------------------------------------------------------------------------------
+    $("#thumbsup").on("click", function() {
+      clickCounter++;
+      database.ref().set({
+        clickCount: clickCounter
+
+      });
+    });
+  
+    database.ref().on("value", function(snapshot) {
+      console.log(snapshot.val());
+      $("#click-value").text(snapshot.val().clickCount);
+      clickCounter = snapshot.val().clickCount;
     });
 </script>
-
-look at all this code how exciting is all of this!
 
 </body>
 
