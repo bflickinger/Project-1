@@ -109,7 +109,7 @@ var windowLoc = $(location).attr('pathname');
 console.log(windowLoc);
 
 $(document).ready(function(){
-    if(window.location.pathname == "/C:/Users/bflicki/bootcamp/Project-1/index.html") {
+    if(window.location.pathname.substring("/index.html")) {
     getRandomBeer();
     }
 });
@@ -142,7 +142,7 @@ getLatLngByZipcode(85226);
 var map;
 
 function initMap(customLocation) {
-    if(window.location.pathname == "/C:/Users/bflicki/bootcamp/Project-1/localbreweries.html"){
+    if(window.location.substring("localbreweries.html")){
     // Create the map.
     console.log(customLocation);
     var customLocation = { lat: 33.423409, lng: -111.940412 };
