@@ -67,13 +67,8 @@ database.ref().on("value", function (snapshot) {
 $(document).on("click", "#search-button", function (event) {
     event.preventDefault();
     var searchTerm = "search?q=" + $("#search-field").val().trim();
-<<<<<<< HEAD
-    console.log(" HEY THIS IS WHAT IS INSIDE THE INPUT BOX " + searchTerm);
-    console.log($("#search-field").val().trim());
-    if ($("#search-field").val().trim() != ""){
-=======
+
     if ($("#search-field").val().trim() != "") {
->>>>>>> 34e004f957f3cc91214033833fa593d2896e3216
         var queryURL = "https://sandbox-api.brewerydb.com/v2/" + searchTerm + "/&key=7380497d0148ba2e8a2b2d6ba7362a03";
         $("#brews-carousel").empty();
         $.ajax({
