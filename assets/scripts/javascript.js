@@ -39,15 +39,13 @@ $(document).on("click", "#search-button", function (event) {
 
 //Gets 4 random beers
 
-var beerArray = [];
-
 function getRandomBeer() {
     var getRandomBeerURL = "https://sandbox-api.brewerydb.com/v2/beer/random/?key=7380497d0148ba2e8a2b2d6ba7362a03";
     var carouselItem = "";
     var firstBeer = true;
     var fourRandosFound = 0;
     $("#brews-carousel").empty();
-    for(let i = 1; i < 11; i++) {
+    for(let i = 1; i < 21; i++) {
         console.log(fourRandosFound);
         $.ajax({
             url: getRandomBeerURL,
@@ -103,12 +101,17 @@ $(document).on("click", "#find-button", function (event) {
 
 //Opens new html page for google places.
 
-$('#find-button').click(function () {
-    window.location = 'localbreweries.html';
+$("#find-button").click(function () {
+    window.location = "localbreweries.html";
 });
 
+var windowLoc = $(location).attr('pathname');
+console.log(windowLoc);
+
 $(document).ready(function(){
+    if(window.location.pathname == "/C:/Users/bflicki/bootcamp/Project-1/index.html") {
     getRandomBeer();
+    }
 });
 // Google places code to create map and markers.
 var latLongString;
@@ -121,8 +124,10 @@ function getLatLngByZipcode(zipcode) {
         success: function (response) {
             latitude = response.results[0].geometry.location.lat;
             longitude = response.results[0].geometry.location.lng;
-            answer = "lat: " + latitude +", lng: " + longitude;
-            handleResponse(answer);
+            console.log(latitude);
+            console.log(longitude);
+            answer = {latitude,longitude};
+            initMap(answer);
         }
     })
 }
@@ -133,12 +138,13 @@ function handleResponse (answer) {
 }
 
 getLatLngByZipcode(85226);
-console.log(latLongString);
 
 var map;
 
-function initMap() {
+function initMap(customLocation) {
+    if(window.location.pathname == "/C:/Users/bflicki/bootcamp/Project-1/localbreweries.html"){
     // Create the map.
+    console.log(customLocation);
     var customLocation = { lat: 33.423409, lng: -111.940412 };
     map = new google.maps.Map(document.getElementById('map'), {
         center: customLocation,
@@ -166,6 +172,7 @@ function initMap() {
                 pagination.nextPage();
             };
         });
+    }
 }
 
 function createMarkers(places) {
