@@ -136,7 +136,7 @@
       database.ref(beer).set({
         // clickCount: clickCounter
         beer: "search-field"
-        clickCounter: clickCounter
+        // clickCounter: clickCounter
       })
 
 
@@ -166,7 +166,7 @@
     var clickCounter = 0;
     // FUNCTIONS + EVENTS
     // --------------------------------------------------------------------------------
-    $("#search-buton").on("click", function() {
+    $("#thumbsup").on("click", function() {
       clickCounter++;
       database.ref().set({
         clickCount: clickCounter
