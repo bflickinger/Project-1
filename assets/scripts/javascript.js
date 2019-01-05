@@ -131,6 +131,7 @@ $(document).on("click", "#find-button", function (event) {
         });
 });
 
+
 //Opens new html page for google places.
 
 $("#find-button").click(function () {
@@ -171,19 +172,22 @@ function handleResponse (answer) {
 
 getLatLngByZipcode(85226);
 
+
 var map;
 
 function initMap(customLocation) {
     if(/localbreweries.html/.test(window.location.href)){
     // Create the map.
+
     console.log(customLocation);
     var customLocation = { lat: 33.423409, lng: -111.940412 };
     map = new google.maps.Map(document.getElementById('map'), {
         center: customLocation,
+
         zoom: 17
     });
 
-    // Create the places service.
+    //   Create the places service.
     var service = new google.maps.places.PlacesService(map);
     var getNextPage = null;
     var moreButton = document.getElementById('more');
@@ -194,7 +198,9 @@ function initMap(customLocation) {
 
     // Perform a nearby search.
     service.nearbySearch(
+
         { location: customLocation, radius: 500, type: ['bar'] },
+
         function (results, status, pagination) {
             if (status !== 'OK') return;
 
@@ -204,44 +210,49 @@ function initMap(customLocation) {
                 pagination.nextPage();
             };
         });
+
     }
 }
 
-function createMarkers(places) {
-    var bounds = new google.maps.LatLngBounds();
-    var placesList = document.getElementById('places');
 
-    for (var i = 0, place; place = places[i]; i++) {
-        var image = {
-            url: place.icon,
-            size: new google.maps.Size(71, 71),
-            origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(17, 34),
-            scaledSize: new google.maps.Size(25, 25)
-        };
 
-        var marker = new google.maps.Marker({
-            map: map,
-            icon: image,
-            title: place.name,
-            position: place.geometry.location
-        });
+    function createMarkers(places) {
+        var bounds = new google.maps.LatLngBounds();
+        var placesList = document.getElementById('places');
 
-        var li = document.createElement('li');
-        li.textContent = place.name;
-        placesList.appendChild(li);
+        for (var i = 0, place; place = places[i]; i++) {
+            var image = {
+                url: place.icon,
+                size: new google.maps.Size(71, 71),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(17, 34),
+                scaledSize: new google.maps.Size(25, 25)
+            };
 
-        bounds.extend(place.geometry.location);
+            var marker = new google.maps.Marker({
+                map: map,
+                icon: image,
+                title: place.name,
+                position: place.geometry.location
+            });
+
+            var li = document.createElement('li');
+            li.textContent = place.name;
+            placesList.appendChild(li);
+
+            bounds.extend(place.geometry.location);
+        }
+        map.fitBounds(bounds);
     }
-    map.fitBounds(bounds);
-}
+
 
 // Bootstrap carousel with multiple slides and interval based update.
 
 function drawCarousel() {
     // console.log("draw carousel first")
+
     $('#recipeCarousel').carousel({
-        interval: 50000
+        interval: 10000
     })
 
     $('.carousel .carousel-item').each(function () {

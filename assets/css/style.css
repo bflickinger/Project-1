@@ -116,6 +116,18 @@ li:nth-child(odd) {
   position : relative;
 }
 
+#zip-search-row {
+  float: left;
+    width: 33%;
+    height: 200px;
+    padding-top: 0px;
+    padding-right: 50px;
+    padding-bottom: 25px;
+    padding-left: 80px;
+  
+}
+
+
 /* 
   #right-panel i {
     font-size: 12px;
@@ -200,4 +212,5 @@ li:nth-child(odd) {
     height: 40px; 
     width: 20px;
   } */ */
+
 
