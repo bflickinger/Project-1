@@ -19,12 +19,12 @@
 
 </head>
 
-<body style="background-color: black">
+<body style="background-color: black; ">
+        <!-- position:fixed; top:0; bottom:0; left:0; right:0; -->
 
-
-    <div class="modal fade" id="zipModal" tabindex="-1" role="dialog" aria-labelledby="zipModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="zipModal"  tabindex="-1" role="dialog" aria-labelledby="zipModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
+            <div class="modal-content" style = 'background-color: lightgrey'>
                 <div class="modal-header">
                     <h5 class="modal-title" id="zipModalLongTitle">Zip Code Error</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -43,18 +43,21 @@
 
     <nav class="navbar navbar-dark bg-dark">
         <span class="navbar-brand mb-0 h1">urBrew</span>
+        <a class="nav-link float right" href="https://www.boxbrewkits.com/blogs/news/16337216-5-abbreviations-brewers-use-that-everyday-beer-drinkers-should-know" target="_blank"style="color: white; font-family: 'Fjalla One', sans-serif; padding-right: 20px">Abreviations Beer Drinkers Should Know</a>
         <a class="nav-link float right" href="#" style="color: white; font-family: 'Fjalla One', sans-serif; padding-right: 20px">Favorite
             Beers </a>
     </nav>
 
     <div class="container-fluid">
         <!-- Jumbotron -->
-        <div class="jumbotron" style="background:transparent url('assets/images/beer.jpeg') no-repeat center center /cover; color: white; font-family: 'Fjalla One', sans-serif; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; ">
+        <div class="jumbotron" style="background:transparent url('assets/images/beer.jpeg') no-repeat center center /cover; color: white; font-family: 'Fjalla One', sans-serif; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; padding-top: 20px; padding-bottom: 20px ">
             <div class="row">
                 <div class="col-6">
                     <h3 class="text-left" style="margin-bottom: 15px">What type of beer do you like?</h3>
                     <h4 class="text-left">We will try to match you with some beer you may enjoy.</h4>
                     <br>
+                    </div>
+                    <div class="col-6">
                     <input class="form-control form-control-lg" id="search-field" type="text" style="align-items: center"
                         placeholder="Ale">
                     <br>
@@ -85,41 +88,45 @@
             </div>
             <!-- test -->
         </div>
-        <div class="row jumbotron" style="background:transparent url('assets/images/barrel.jpeg') no-repeat center center /cover; color: white; font-family: 'Fjalla One', sans-serif; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">
-            <div class="col-3">
-                <h3 class="text-left" style="padding-right: 30px">Find a local brewery!</h3>
-                <br>
-                <input class="form-control form-control-lg" id="zip-field" type="text" style="align-items: center"
+        <div class="row jumbotron" style="background:transparent url('assets/images/barrel.jpeg') no-repeat center center /cover; color: white; font-family: 'Fjalla One', sans-serif; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; padding-top: 20px; padding-bottom: 20px">
+            <div class="col-4">
+                <h3 class="text-right" style="padding-right: 30px">Find a local brewery!</h3>
+            </div>
+            <div class="col-4">
+                <input class="form-control form-control-lg" style= 'width: 50%; float: right' id="zip-field" type="text" style="align-items: center"
                     placeholder="ZipCode">
-                <br>
-                <button type="button" class="btn btn-light" id="find-button">I like beer.</button>
+            </div>
+            <div class="col-4">
+                <button type="button" class="btn btn-light" id="find-button" style= 'float: left'>I like beer.</button>
             </div>
         </div>
 
-      <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+    <div class="modal fade modal-xl" id="beerModal" tabindex="-1" role="dialog" aria-labelledby="beerInfo"
+    aria-hidden="true">
+          <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content" style="background-color: whitesmoke">
+                <div class="modal-header modal-xl">
+                    <h5 class="modal-title" id="beerInfo"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body modal-xl">
+                        <p id="BeerType"></p>           
+                    <p id="BeerBody">
+                    </p>
+                    <p id="BeerDetails">
+                    </p>
+                </div>
+                <div class="modal-footer modal-xl">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="thumbsup"><i class="far fa-thumbs-up"></i> Favorite</button>
+                </div>
             </div>
-            <div class="modal-body">
-              
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-          </div>
         </div>
-      </div>
+    </div>
           
-<div class ="row jumbotron" style="background:transparent url('assets/images/barrel.jpeg') no-repeat center center /cover; color: white; font-family: 'Fjalla One', sans-serif; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;">
-  <h3 class="text-left" style="padding-right: 30px">Find a local brewery!</h3>
-  <button type="button" class="btn btn-light" id="find-button">I like beer.</button>
-</div>
+
         <!-- JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
