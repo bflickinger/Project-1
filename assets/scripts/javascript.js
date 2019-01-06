@@ -1,20 +1,79 @@
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyANPVjyDPOaf__7rBLObpggPLvD8hxgJ2o",
+    authDomain: "group-project-1-e214d.firebaseapp.com",
+    databaseURL: "https://group-project-1-e214d.firebaseio.com",
+    projectId: "group-project-1-e214d",
+    storageBucket: "group-project-1-e214d.appspot.com",
+    messagingSenderId: "734613753940"
+};
+firebase.initializeApp(config);
+// Gets a reference to the database
+// --------------------------------------------------------------------------------
+var database = firebase.database();
+var clickCounter = 0;
+// FUNCTIONS + EVENTS
+// --------------------------------------------------------------------------------
+$("#search-button").on("click", function () {
+    var beer = $("#search-field").val().trim();
+    // console.log(beer)
+    clickCounter++;
+    // database.ref().set({
+    //   clickCount: clickCounter
+    // });
+    database.ref(beer).set({
+        // clickCount: clickCounter
+        beer: "search-field"
+        // clickCounter: clickCounter
+    })
+});
+
+database.ref().on("value", function (snapshot) {
+    console.log(snapshot.val());
+    $("#click-value").text(snapshot.val().clickCount);
+    clickCounter = snapshot.val().clickCount;
+});
+
+// // Initialize Firebase
+// var config = {
+//     apiKey: "AIzaSyANPVjyDPOaf__7rBLObpggPLvD8hxgJ2o",
+//     authDomain: "group-project-1-e214d.firebaseapp.com",
+//     databaseURL: "https://group-project-1-e214d.firebaseio.com",
+//     projectId: "group-project-1-e214d",
+//     storageBucket: "group-project-1-e214d.appspot.com",
+//     messagingSenderId: "734613753940"
+// };
+// firebase.initializeApp(config);
+// // Gets a reference to the database
+// // --------------------------------------------------------------------------------
+// var database = firebase.database();
+// var clickCounter = 0;
+// // FUNCTIONS + EVENTS
+// // --------------------------------------------------------------------------------
+// $("#thumbsup").on("click", function () {
+//     clickCounter++;
+//     database.ref().set({
+//         clickCount: clickCounter
+//     });
+// });
+
+// database.ref().on("value", function (snapshot) {
+//     console.log(snapshot.val());
+//     $("#click-value").text(snapshot.val().clickCount);
+//     clickCounter = snapshot.val().clickCount;
+// });
+
 // Search for beers 
 $(document).on("click", "#search-button", function (event) {
     event.preventDefault();
     var searchTerm = "search?q=" + $("#search-field").val().trim();
-<<<<<<< HEAD
-    console.log(" HEY THIS IS WHAT IS INSIDE THE INPUT BOX " + searchTerm);
-    console.log($("#search-field").val().trim());
-    if ($("#search-field").val().trim() != ""){
-=======
+
     if ($("#search-field").val().trim() != "") {
->>>>>>> 34e004f957f3cc91214033833fa593d2896e3216
         var queryURL = "https://sandbox-api.brewerydb.com/v2/" + searchTerm + "/&key=7380497d0148ba2e8a2b2d6ba7362a03";
         $("#brews-carousel").empty();
         $.ajax({
             url: queryURL,
             method: "GET"
-
         })
             .then(function (response) {
                 if (response.data.length > 0) {
@@ -32,46 +91,22 @@ $(document).on("click", "#search-button", function (event) {
                                 $("<img>").attr({
                                     "class": "d-block col-3 img-fluid",
                                     "src": response.data[i].labels.medium,
-                                    "data": response.data[i].id
+                                    "data": response.data[i].id,
+                                    "name": response.data[i].name,
+                                    "description": response.data[i].description,
+                                    "beertype": response.data[i].style.name,
+                                    "beertypedescription": response.data[i].style.description,
+                                    "onclick": "getImageData(this)"
                                 })
                             );
                             $("#brews-carousel").append(beerItem);
                         };
+                    
                     };
                     drawCarousel();
                 };
+                
             });
-
-//             })
-//         .then(function(response) {
-//             console.log(response);
-//             if (response.totalResults >10){
-//                 var beerArray = [];
-//                 for (let i=0; i<19; i++){
-//                     beerArray[i] = response.data[i].id;
-//                     if ("labels" in response.data[i]){
-//                         console.log("has label");
-//                         var beerCol = $("<div>").append(
-//                         $("<img>").attr({
-//                             "src" : response.data[i].labels.medium,
-//                             "class" : "img-fluid",
-//                             "alt" : "Responsive image"}),
-//                         $("<h4>").attr({
-//                             "src" : response.data[i].
-//                             "class" : "text-center",
-//                             "style" : "font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon"}).text(response.data[i].name),
-//                         $("<p>").attr({
-//                             "class" : "text-center",
-//                             "style" : "font-family: 'Fjalla One', sans-serif; padding-top: 5px; color:lemonchiffon"}).text(response.data[i].style.abvMax),
-//                         $("<div class='show text-center'><span class='showtext'>" + text(response.data[1].style.description) + "</span></div>").attr("class","show text-center").text(response.data[i].style.name)
-//                             $("<span>").attr("class","showtext").
-//                         );
-//                         $("#brews-container").append(beerCol);
-//                     }
-//                 }
-//             }
-//         });
-
     }
 });
 
@@ -83,7 +118,7 @@ function getRandomBeer() {
     var firstBeer = true;
     var fourRandosFound = 0;
     $("#brews-carousel").empty();
-    for(let i = 1; i < 21; i++) {
+    for (let i = 1; i < 31; i++) {
         console.log(fourRandosFound);
         $.ajax({
             url: getRandomBeerURL,
@@ -95,8 +130,8 @@ function getRandomBeer() {
                     url: uniqueBeer,
                     method: "GET"
                 })
-                    .then(function(response2) {
-                        if(response2.data.labels && (fourRandosFound<8)){
+                    .then(function (response2) {
+                        if (response2.data.labels && (fourRandosFound < 8)) {
                             if (firstBeer) {
                                 carouselItem = "carousel-item active";
                                 firstBeer = false;
@@ -107,56 +142,257 @@ function getRandomBeer() {
                                 $("<img>").attr({
                                     "class": "d-block col-3 img-fluid",
                                     "src": response2.data.labels.medium,
-                                    "data": response2.data.id
+                                    "data": response2.data.id,
+                                    "name": response2.data.name,
+                                    "description": response2.data.description,
+                                    "beertype": response2.data.style.name,
+                                    "beertypedescription": response2.data.style.description,
+                                    "abv": response2.data.abv,
+                                    "ibu": response2.data.ibu,
+                                    "abvtypemax": response2.data.style.abvMax,
+                                    "abvtypemin": response2.data.style.abvMin,
+                                    "ibutypemax": response2.data.style.ibuMax,
+                                    "ibutypemin": response2.data.style.ibuMin,
+                                    "fgtypemax": response2.data.style.fgMax,
+                                    "fgtypemin": response2.data.style.fgMin,
+                                    "ogtypemax": response2.data.style.ogMax,
+                                    "ogtypemin": response2.data.style.ogMin,
+                                    "srmtypemax": response2.data.style.srmMax,
+                                    "srmtypemin": response2.data.style.srmMin,
+                                    "onclick": "getImageData(this)"
                                 })
                             );
                             $("#brews-carousel").append(beerItem);
                             fourRandosFound++;
                             console.log("Random Beer with label found! Count is " + fourRandosFound);
-                            if (fourRandosFound==8) {
+                            if (fourRandosFound == 8) {
                                 drawCarousel();
                             }
                         }
                     });
-            }); 
-        }
+            });
+    }
 }
 
-$(document).on("click", "#find-button", function (event) {
-    event.preventDefault();
-    var searchTerm2 = "search?q=" + $("#search-field").val().trim();
-    // Add geolocate and/or zip code box for search.  
-    var queryURL2 = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=breweries+85226&sensor=false&key=AIzaSyBu36ZRbWoTi-gl0GbmDWXp6oJ4H30R7x4";
-    console.log(queryURL2);
-    $.ajax({
-        url: queryURL2,
-        method: "GET"
-    })
-        .then(function (response) {
-            console.log(response);
-        });
-});
+function getImageData(data) {
 
+    var beerId = "";
+    var beerName = "";
+    var beerDescription = "";
+    var beerType = "";
+    var beerTypeDescription = "";
+    var beerABV = "";
+    var beerIBU = "";
+    var abvTypeMax = "";
+    var abvTypeMin = "";
+    var ibuTypeMax = "";
+    var ibuTypeMin = "";
+    var fgTypeMax = "";
+    var fgTypeMin = "";
+    var ogTypeMax = "";
+    var ogTypeMin = "";
+    var srmTypeMax = "";
+    var srmTypeMin = "";
+    var beerDetails = "";
+
+    for(i = 0; i < data.attributes.length - 1; i++)
+    {
+        if (data.attributes[i].name == "data") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                beerId = data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "name") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                beerName = data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "description") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                beerDescription = data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "beertype") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                beerType = data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "beertypedescription") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                beerTypeDescription = data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "abv") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                beerABV += data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "ibu") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                beerIBU += data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "abvtypemax") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                abvTypeMax += data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "abvtypemin") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                abvTypeMin += data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "ibutypemax") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                ibuTypeMax += data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "ibutypemin") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                ibuTypeMin += data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "fgtypemax") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                fgTypeMax += data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "fgtypemin") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                fgTypeMin += data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "ogtypemax") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                ogTypeMax += data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "ogtypemin") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                ogTypeMin += data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "srmtypemax") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                srmTypeMax += data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "srmtypemin") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                srmTypeMin += data.attributes[i].value;
+            }
+        }
+    }
+
+    if (beerDescription == "") {
+        if (beerTypeDescription !== "") {
+            beerDescription = beerTypeDescription;
+        }
+    }
+
+    if (beerABV !== "") {
+        if (beerDetails == "") {
+            beerDetails += beerName + ":  ABV: "  + beerABV;
+        }
+        else {
+            beerDetails += "<br />" + beerName + ":  ABV: "  + beerABV;
+        }
+    }
+    else {
+        if (abvTypeMin !== "" && abvTypeMax !== "") {
+            if (beerDetails == "") {
+                beerDetails += beerType + ":  Min ABV: " + abvTypeMin + "  Max ABV: " + abvTypeMax;
+            }
+            else {
+                beerDetails += "<br />" + beerType + ":  Min ABV: " + abvTypeMin + "  Max ABV: " + abvTypeMax;
+            }
+        }
+
+    }
+
+    if (beerIBU !== "") {
+        if (beerDetails == "") {
+            beerDetails += beerName + ":  IBU: "  + beerIBU;
+        }
+        else {
+            beerDetails += "<br />" + beerName + ":  IBU: "  + beerIBU;
+        }
+    }
+    else {
+        if (ibuTypeMin !== "" && ibuTypeMax !== "") {
+            if (beerDetails == "") {
+            beerDetails += beerType + ":  Min IBU: " + ibuTypeMin + "  Max IBU: " + ibuTypeMax;
+            }
+            else {
+                beerDetails += "<br />" + beerType + ":  Min IBU: " + ibuTypeMin + "  Max IBU: " + ibuTypeMax; 
+            }
+        }
+
+    }   
+    if (srmTypeMin !== "" && srmTypeMax !== "") {
+        if (beerDetails == "") {
+        beerDetails += beerType + ":  Min SRM: " + srmTypeMin + "  Max SRM: " + srmTypeMax;
+        }
+        else {
+            beerDetails += "<br />" + beerType + ":  Min SRM: " + srmTypeMin + "  Max SRM: " + srmTypeMax; 
+        }
+    }
+    if (ogTypeMin !== "" && ogTypeMax !== "") {
+        if (beerDetails == "") {
+        beerDetails += beerType + ":  Min OG: " + ogTypeMin + "  Max OG: " + ogTypeMax;
+        }
+        else {
+            beerDetails += "<br />" + beerType + ":  Min OG: " + ogTypeMin + "  Max OG: " + ogTypeMax;
+        }
+    }   
+    if (fgTypeMin !== "" && fgTypeMax !== "") {
+        if (beerDetails == "") {
+        beerDetails += beerType + ":  Min FG: " + fgTypeMin + "  Max FG: " + fgTypeMax;
+        }
+        else {
+            beerDetails += "<br />" + beerType + ":  Min FG: " + fgTypeMin + "  Max FG: " + fgTypeMax;
+        }
+    }  
+
+
+    $('#beerInfo').text(beerName);
+    $('#BeerType').text(beerType);
+    $('#BeerBody').text(beerDescription);
+    $('#BeerDetails').html(beerDetails);
+    $('#beerModal').modal('toggle');
+}
 
 //Opens new html page for google places.
 
+function isValidUSZip(sZip) {
+    return /^\d{5}(-\d{4})?$/.test(sZip);
+}
+
 $("#find-button").click(function () {
-    window.location = "localbreweries.html";
+    tempZip = $("#zip-field").val().trim();
+    if (isValidUSZip(tempZip)) {
+        console.log("valid zip code!");
+        window.location = "localbreweries.html";
+    } else {
+        console.log("not a valid zip code");
+        $('#zipModal').modal('toggle');
+    }
 });
 
 var windowLoc = $(location).attr('pathname');
 console.log(windowLoc);
 
-$(document).ready(function(){
-    if(/index.html/.test(window.location.href)) {
-    getRandomBeer();
+$(document).ready(function () {
+    if (/index.html/.test(window.location.href)) {
+        getRandomBeer();
     }
 });
+
 // Google places code to create map and markers.
 var latLongString;
 
 function getLatLngByZipcode(zipcode) {
-    var latLongQuery ="https://maps.googleapis.com/maps/api/geocode/json?address="+ zipcode +"&key=AIzaSyAxR6ZRJI9Wrw_dljpvfsR2Ic35iF-3OPo"
+    var latLongQuery = "https://maps.googleapis.com/maps/api/geocode/json?address=" + zipcode + "&key=AIzaSyAxR6ZRJI9Wrw_dljpvfsR2Ic35iF-3OPo"
     $.ajax({
         url: latLongQuery,
         method: "GET",
@@ -165,13 +401,13 @@ function getLatLngByZipcode(zipcode) {
             longitude = response.results[0].geometry.location.lng;
             console.log(latitude);
             console.log(longitude);
-            answer = {latitude,longitude};
+            answer = { latitude, longitude };
             initMap(answer);
         }
     })
 }
 
-function handleResponse (answer) {
+function handleResponse(answer) {
     latLongString = answer;
     console.log(latLongString);
 }
@@ -182,75 +418,72 @@ getLatLngByZipcode(85226);
 var map;
 
 function initMap(customLocation) {
-    if(/localbreweries.html/.test(window.location.href)){
-    // Create the map.
+    if (/localbreweries.html/.test(window.location.href)) {
+        // Create the map.
 
-    console.log(customLocation);
-    var customLocation = { lat: 33.423409, lng: -111.940412 };
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: customLocation,
+        console.log(customLocation);
+        var customLocation = { lat: 33.423409, lng: -111.940412 };
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: customLocation,
 
-        zoom: 17
-    });
-
-    //   Create the places service.
-    var service = new google.maps.places.PlacesService(map);
-    var getNextPage = null;
-    var moreButton = document.getElementById('more');
-    moreButton.onclick = function () {
-        moreButton.disabled = true;
-        if (getNextPage) getNextPage();
-    };
-
-    // Perform a nearby search.
-    service.nearbySearch(
-
-        { location: customLocation, radius: 500, type: ['bar'] },
-
-        function (results, status, pagination) {
-            if (status !== 'OK') return;
-
-            createMarkers(results);
-            moreButton.disabled = !pagination.hasNextPage;
-            getNextPage = pagination.hasNextPage && function () {
-                pagination.nextPage();
-            };
+            zoom: 17
         });
+
+        //   Create the places service.
+        var service = new google.maps.places.PlacesService(map);
+        var getNextPage = null;
+        var moreButton = document.getElementById('more');
+        moreButton.onclick = function () {
+            moreButton.disabled = true;
+            if (getNextPage) getNextPage();
+        };
+
+        // Perform a nearby search.
+        service.nearbySearch(
+
+            { location: customLocation, radius: 500, type: ['bar'] },
+
+            function (results, status, pagination) {
+                if (status !== 'OK') return;
+
+                createMarkers(results);
+                moreButton.disabled = !pagination.hasNextPage;
+                getNextPage = pagination.hasNextPage && function () {
+                    pagination.nextPage();
+                };
+            });
 
     }
 }
 
+function createMarkers(places) {
+    var bounds = new google.maps.LatLngBounds();
+    var placesList = document.getElementById('places');
 
+    for (var i = 0, place; place = places[i]; i++) {
+        var image = {
+            url: place.icon,
+            size: new google.maps.Size(71, 71),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(17, 34),
+            scaledSize: new google.maps.Size(25, 25)
+        };
 
-    function createMarkers(places) {
-        var bounds = new google.maps.LatLngBounds();
-        var placesList = document.getElementById('places');
+        var marker = new google.maps.Marker({
+            map: map,
+            icon: image,
+            title: place.name,
+            position: place.geometry.location
+        });
 
-        for (var i = 0, place; place = places[i]; i++) {
-            var image = {
-                url: place.icon,
-                size: new google.maps.Size(71, 71),
-                origin: new google.maps.Point(0, 0),
-                anchor: new google.maps.Point(17, 34),
-                scaledSize: new google.maps.Size(25, 25)
-            };
+        var li = document.createElement('li');
+        li.textContent = place.name;
+        placesList.appendChild(li);
 
-            var marker = new google.maps.Marker({
-                map: map,
-                icon: image,
-                title: place.name,
-                position: place.geometry.location
-            });
-
-            var li = document.createElement('li');
-            li.textContent = place.name;
-            placesList.appendChild(li);
-
-            bounds.extend(place.geometry.location);
-        }
-        map.fitBounds(bounds);
+        bounds.extend(place.geometry.location);
     }
-
+    map.fitBounds(bounds);
+}
 
 // Bootstrap carousel with multiple slides and interval based update.
 
@@ -279,5 +512,3 @@ function drawCarousel() {
         }
     });
 }
-
-drawCarousel();
