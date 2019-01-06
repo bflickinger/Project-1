@@ -156,8 +156,8 @@
 <script src="assets/scripts/javascript.js"></script>
 <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
 <script>
-  // Initialize Firebase
-  var config = {
+//firebase//  
+var config = {
     apiKey: "AIzaSyANPVjyDPOaf__7rBLObpggPLvD8hxgJ2o",
     authDomain: "group-project-1-e214d.firebaseapp.com",
     databaseURL: "https://group-project-1-e214d.firebaseio.com",
@@ -166,67 +166,65 @@
     messagingSenderId: "734613753940"
   };
   firebase.initializeApp(config);
-    // Gets a reference to the database
-    // --------------------------------------------------------------------------------
-    var database = firebase.database();
-    var clickCounter = 0;
-    // FUNCTIONS + EVENTS
-    // --------------------------------------------------------------------------------
+  var database = firebase.database();
+    
     $("#search-button").on("click", function() {
-      var beer = $("#search-field").val().trim();
-      // console.log(beer)
-      clickCounter++;
-      // database.ref().set({
-      //   clickCount: clickCounter
-      // });
+      var beer = $("#search-field").val().trim().toLowerCase();
 
 
-      database.ref(beer).set({
-        // clickCount: clickCounter
-        beer: "search-field"
-        // clickCounter: clickCounter
-      })
+    //  var beerID;
+    //   database.ref("/" + beerID).set({
+    //     clickCount: clickCounter
+    //   });
+
+
+      database.ref("/beers").push({ beer: beer});
 
 
     });
   
-    database.ref().on("value", function(snapshot) {
-      console.log(snapshot.val());
-      $("#click-value").text(snapshot.val().clickCount);
-      clickCounter = snapshot.val().clickCount;
+    // database.ref().on("value", function(snapshot) {
+    //   console.log(snapshot.val());
+    //   $("#click-value").text(snapshot.val().clickCount);
+    //   clickCounter = snapshot.val().clickCount;
 
-    });
-</script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyANPVjyDPOaf__7rBLObpggPLvD8hxgJ2o",
-    authDomain: "group-project-1-e214d.firebaseapp.com",
-    databaseURL: "https://group-project-1-e214d.firebaseio.com",
-    projectId: "group-project-1-e214d",
-    storageBucket: "group-project-1-e214d.appspot.com",
-    messagingSenderId: "734613753940"
-  };
-  firebase.initializeApp(config);
-    // Gets a reference to the database
-    // --------------------------------------------------------------------------------
+    // });
+
     var database = firebase.database();
     var clickCounter = 0;
-    // FUNCTIONS + EVENTS
-    // --------------------------------------------------------------------------------
+    
     $("#thumbsup").on("click", function() {
       clickCounter++;
-      database.ref().set({
-        clickCount: clickCounter
+    //   database.ref("/clicks").set(clickCounter);
+      database.ref("/clicks").transaction(function(currentClicks)   {
+        return (currentClicks || 0) + 1;
       });
+      var beerName = ""
+      likeBeer(beerName);
     });
   
-    database.ref().on("value", function(snapshot) {
+    database.ref("/clicks").on("value", function(snapshot) {
       console.log(snapshot.val());
-      $("#click-value").text(snapshot.val().clickCount);
-      clickCounter = snapshot.val().clickCount;
+    //   $("#click-value").text(snapshot.val().clickCount);
+    //   clickCounter = snapshot.val().clickCount;
+
+
     });
 
+    database.ref("/likes").on("value", function(snapshot) {
+      console.log(snapshot.val());
+
+
+    });
+    function likeBeer(beerID)   {
+        database.ref("/likes").transaction(function(likedBeer) {
+            var likes = likedBeer || {}
+            likes[beerName] = (likes[beerName] || 0) + 1
+            return likes 
+        });
+    }
+
+</script>
 
 </script>
 </body>  
