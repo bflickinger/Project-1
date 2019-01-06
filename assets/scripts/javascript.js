@@ -91,14 +91,21 @@ $(document).on("click", "#search-button", function (event) {
                                 $("<img>").attr({
                                     "class": "d-block col-3 img-fluid",
                                     "src": response.data[i].labels.medium,
-                                    "data": response.data[i].id
+                                    "data": response.data[i].id,
+                                    "name": response.data[i].name,
+                                    "description": response.data[i].description,
+                                    "beertype": response.data[i].style.name,
+                                    "beertypedescription": response.data[i].style.description,
+                                    "onclick": "getImageData(this)"
                                 })
                             );
                             $("#brews-carousel").append(beerItem);
                         };
+                    
                     };
                     drawCarousel();
                 };
+                
             });
     }
 });
@@ -135,7 +142,24 @@ function getRandomBeer() {
                                 $("<img>").attr({
                                     "class": "d-block col-3 img-fluid",
                                     "src": response2.data.labels.medium,
-                                    "data": response2.data.id
+                                    "data": response2.data.id,
+                                    "name": response2.data.name,
+                                    "description": response2.data.description,
+                                    "beertype": response2.data.style.name,
+                                    "beertypedescription": response2.data.style.description,
+                                    "abv": response2.data.abv,
+                                    "ibu": response2.data.ibu,
+                                    "abvtypemax": response2.data.style.abvMax,
+                                    "abvtypemin": response2.data.style.abvMin,
+                                    "ibutypemax": response2.data.style.ibuMax,
+                                    "ibutypemin": response2.data.style.ibuMin,
+                                    "fgtypemax": response2.data.style.fgMax,
+                                    "fgtypemin": response2.data.style.fgMin,
+                                    "ogtypemax": response2.data.style.ogMax,
+                                    "ogtypemin": response2.data.style.ogMin,
+                                    "srmtypemax": response2.data.style.srmMax,
+                                    "srmtypemin": response2.data.style.srmMin,
+                                    "onclick": "getImageData(this)"
                                 })
                             );
                             $("#brews-carousel").append(beerItem);
@@ -148,6 +172,194 @@ function getRandomBeer() {
                     });
             });
     }
+}
+
+function getImageData(data) {
+
+    var beerId = "";
+    var beerName = "";
+    var beerDescription = "";
+    var beerType = "";
+    var beerTypeDescription = "";
+    var beerABV = "";
+    var beerIBU = "";
+    var abvTypeMax = "";
+    var abvTypeMin = "";
+    var ibuTypeMax = "";
+    var ibuTypeMin = "";
+    var fgTypeMax = "";
+    var fgTypeMin = "";
+    var ogTypeMax = "";
+    var ogTypeMin = "";
+    var srmTypeMax = "";
+    var srmTypeMin = "";
+    var beerDetails = "";
+
+    for(i = 0; i < data.attributes.length - 1; i++)
+    {
+        if (data.attributes[i].name == "data") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                beerId = data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "name") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                beerName = data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "description") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                beerDescription = data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "beertype") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                beerType = data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "beertypedescription") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                beerTypeDescription = data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "abv") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                beerABV += data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "ibu") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                beerIBU += data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "abvtypemax") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                abvTypeMax += data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "abvtypemin") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                abvTypeMin += data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "ibutypemax") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                ibuTypeMax += data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "ibutypemin") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                ibuTypeMin += data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "fgtypemax") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                fgTypeMax += data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "fgtypemin") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                fgTypeMin += data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "ogtypemax") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                ogTypeMax += data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "ogtypemin") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                ogTypeMin += data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "srmtypemax") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                srmTypeMax += data.attributes[i].value;
+            }
+        }
+        else if (data.attributes[i].name == "srmtypemin") {
+            if (typeof data.attributes[i].value !== 'undefined') {
+                srmTypeMin += data.attributes[i].value;
+            }
+        }
+    }
+
+    if (beerDescription == "") {
+        if (beerTypeDescription !== "") {
+            beerDescription = beerTypeDescription;
+        }
+    }
+
+    if (beerABV !== "") {
+        if (beerDetails == "") {
+            beerDetails += beerName + ":  ABV: "  + beerABV;
+        }
+        else {
+            beerDetails += "<br />" + beerName + ":  ABV: "  + beerABV;
+        }
+    }
+    else {
+        if (abvTypeMin !== "" && abvTypeMax !== "") {
+            if (beerDetails == "") {
+                beerDetails += beerType + ":  Min ABV: " + abvTypeMin + "  Max ABV: " + abvTypeMax;
+            }
+            else {
+                beerDetails += "<br />" + beerType + ":  Min ABV: " + abvTypeMin + "  Max ABV: " + abvTypeMax;
+            }
+        }
+
+    }
+
+    if (beerIBU !== "") {
+        if (beerDetails == "") {
+            beerDetails += beerName + ":  IBU: "  + beerIBU;
+        }
+        else {
+            beerDetails += "<br />" + beerName + ":  IBU: "  + beerIBU;
+        }
+    }
+    else {
+        if (ibuTypeMin !== "" && ibuTypeMax !== "") {
+            if (beerDetails == "") {
+            beerDetails += beerType + ":  Min IBU: " + ibuTypeMin + "  Max IBU: " + ibuTypeMax;
+            }
+            else {
+                beerDetails += "<br />" + beerType + ":  Min IBU: " + ibuTypeMin + "  Max IBU: " + ibuTypeMax; 
+            }
+        }
+
+    }   
+    if (srmTypeMin !== "" && srmTypeMax !== "") {
+        if (beerDetails == "") {
+        beerDetails += beerType + ":  Min SRM: " + srmTypeMin + "  Max SRM: " + srmTypeMax;
+        }
+        else {
+            beerDetails += "<br />" + beerType + ":  Min SRM: " + srmTypeMin + "  Max SRM: " + srmTypeMax; 
+        }
+    }
+    if (ogTypeMin !== "" && ogTypeMax !== "") {
+        if (beerDetails == "") {
+        beerDetails += beerType + ":  Min OG: " + ogTypeMin + "  Max OG: " + ogTypeMax;
+        }
+        else {
+            beerDetails += "<br />" + beerType + ":  Min OG: " + ogTypeMin + "  Max OG: " + ogTypeMax;
+        }
+    }   
+    if (fgTypeMin !== "" && fgTypeMax !== "") {
+        if (beerDetails == "") {
+        beerDetails += beerType + ":  Min FG: " + fgTypeMin + "  Max FG: " + fgTypeMax;
+        }
+        else {
+            beerDetails += "<br />" + beerType + ":  Min FG: " + fgTypeMin + "  Max FG: " + fgTypeMax;
+        }
+    }  
+
+
+    $('#beerInfo').text(beerName);
+    $('#BeerType').text(beerType);
+    $('#BeerBody').text(beerDescription);
+    $('#BeerDetails').html(beerDetails);
+    $('#beerModal').modal('toggle');
 }
 
 //Opens new html page for google places.
@@ -175,6 +387,7 @@ $(document).ready(function () {
         getRandomBeer();
     }
 });
+
 // Google places code to create map and markers.
 var latLongString;
 
@@ -299,5 +512,3 @@ function drawCarousel() {
         }
     });
 }
-
-drawCarousel();
