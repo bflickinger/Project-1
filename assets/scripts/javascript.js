@@ -508,3 +508,15 @@ var config = {
             return likes 
         });
     }
+
+    $("#favorite-button").click(function () {
+        $('#favModal').modal('toggle');
+        // loop for number items that are favorited
+            // in loop, 
+            Query queryRef = myFirebaseRef.orderByChild("fullName");
+
+        for(var i=1; i<11; i++){
+            var favoriteList = $("<li>Beer Name - Number of favorites</li>");
+            $("#favorite-body").append(favoriteList);
+        }
+    });
