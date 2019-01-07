@@ -482,13 +482,7 @@ var config = {
 
       database.ref("/beers").push({ beer: beer});
     });
-  
-    // database.ref().on("value", function(snapshot) {
-    //   console.log(snapshot.val());
-    //   $("#click-value").text(snapshot.val().clickCount);
-    //   clickCounter = snapshot.val().clickCount;
 
-    // });
 
     var database = firebase.database();
     var clickCounter = 0;
@@ -528,12 +522,14 @@ var config = {
 
     $("#favorite-button").click(function () {
         $('#favModal').modal('toggle');
+        dataRef.ref().on("child_added", function(childSnapshot)
         // loop for number items that are favorited
             // in loop, 
-            Query queryRef = myFirebaseRef.orderByChild("fullName");
-
+        
         for(var i=1; i<11; i++){
-            var favoriteList = $("<li>Beer Name - Number of favorites</li>");
-            $("#favorite-body").append(favoriteList);
-        }
+            //var ref = 
+            //var favoriteList = firebase.database().ref("/likes");
+            //$("<li>Beer Name - Number of favorites</li>");
+            //$("#favorite-body").append(favoriteList);
+            }
     });
