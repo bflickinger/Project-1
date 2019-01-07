@@ -522,7 +522,7 @@ var config = {
 
     $("#favorite-button").click(function () {
         $('#favModal').modal('toggle');
-        dataRef.ref().on("child_added", function(childSnapshot)
+        // dataRef.ref().on("child_added", function(childSnapshot)
         // loop for number items that are favorited
             // in loop, 
         
