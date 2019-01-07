@@ -96,6 +96,18 @@ $(document).on("click", "#search-button", function (event) {
                                     "description": response.data[i].description,
                                     "beertype": response.data[i].style.name,
                                     "beertypedescription": response.data[i].style.description,
+                                    "abv": response.data[i].abv,
+                                    "ibu": response.data[i].ibu,
+                                    "abvtypemax": response.data[i].style.abvMax,
+                                    "abvtypemin": response.data[i].style.abvMin,
+                                    "ibutypemax": response.data[i].style.ibuMax,
+                                    "ibutypemin": response.data[i].style.ibuMin,
+                                    "fgtypemax": response.data[i].style.fgMax,
+                                    "fgtypemin": response.data[i].style.fgMin,
+                                    "ogtypemax": response.data[i].style.ogMax,
+                                    "ogtypemin": response.data[i].style.ogMin,
+                                    "srmtypemax": response.data[i].style.srmMax,
+                                    "srmtypemin": response.data[i].style.srmMin,
                                     "onclick": "getImageData(this)"
                                 })
                             );
