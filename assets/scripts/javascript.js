@@ -377,7 +377,7 @@ $("#find-button").click(function () {
     if (isValidUSZip(tempZip)) {
         console.log("valid zip code!");
         localStorage.setItem("Zip", tempZip);
-        window.location = "localbreweries.html";
+        window.open("localbreweries.html");
     } else {
         console.log("not a valid zip code");
         $('#zipModal').modal('toggle');
