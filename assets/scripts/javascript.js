@@ -384,6 +384,9 @@ $("#find-button").click(function () {
     }
 });
 
+$("#favorite-button").click(function () {
+    $('#favModal').modal('toggle');
+});
 
 $(document).ready(function () {
     if (/index.html/.test(window.location.href)) {
