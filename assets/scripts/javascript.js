@@ -15,7 +15,9 @@ $(document).on("click", "#search-button", function (event) {
                 if (response.data.length > 0) {
                     var carouselItem = "";
                     var firstBeer = true;
+                    console.log(response);
                     for (let i = 0; i < response.data.length; i++) {
+                        console.log(response.data.length);
                         if (response.data[i].labels) {
                             if (firstBeer) {
                                 carouselItem = "carousel-item active";
@@ -52,6 +54,7 @@ $(document).on("click", "#search-button", function (event) {
                     
                     };
                     drawCarousel();
+                    console.log("Draw Carousel Fired");
                 };
                 
             });
@@ -66,7 +69,7 @@ function getRandomBeer() {
     var fourRandosFound = 0;
     $("#brews-carousel").empty();
     for (let i = 1; i < 31; i++) {
-        console.log(fourRandosFound);
+        // console.log(fourRandosFound);
         $.ajax({
             url: getRandomBeerURL,
             method: "GET"
@@ -111,7 +114,7 @@ function getRandomBeer() {
                             );
                             $("#brews-carousel").append(beerItem);
                             fourRandosFound++;
-                            console.log("Random Beer with label found! Count is " + fourRandosFound);
+                            // console.log("Random Beer with label found! Count is " + fourRandosFound);
                             if (fourRandosFound == 8) {
                                 drawCarousel();
                             }
