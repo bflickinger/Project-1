@@ -1,68 +1,3 @@
-// Initialize Firebase
-var config = {
-    apiKey: "AIzaSyANPVjyDPOaf__7rBLObpggPLvD8hxgJ2o",
-    authDomain: "group-project-1-e214d.firebaseapp.com",
-    databaseURL: "https://group-project-1-e214d.firebaseio.com",
-    projectId: "group-project-1-e214d",
-    storageBucket: "group-project-1-e214d.appspot.com",
-    messagingSenderId: "734613753940"
-};
-firebase.initializeApp(config);
-// Gets a reference to the database
-// --------------------------------------------------------------------------------
-var database = firebase.database();
-var clickCounter = 0;
-// FUNCTIONS + EVENTS
-// --------------------------------------------------------------------------------
-$("#search-button").on("click", function () {
-    var beer = $("#search-field").val().trim();
-    // console.log(beer)
-    clickCounter++;
-    // database.ref().set({
-    //   clickCount: clickCounter
-    // });
-    database.ref(beer).set({
-        // clickCount: clickCounter
-        beer: "search-field"
-        // clickCounter: clickCounter
-    })
-});
-
-database.ref().on("value", function (snapshot) {
-    console.log(snapshot.val());
-    $("#click-value").text(snapshot.val().clickCount);
-    clickCounter = snapshot.val().clickCount;
-});
-
-// // Initialize Firebase
-// var config = {
-//     apiKey: "AIzaSyANPVjyDPOaf__7rBLObpggPLvD8hxgJ2o",
-//     authDomain: "group-project-1-e214d.firebaseapp.com",
-//     databaseURL: "https://group-project-1-e214d.firebaseio.com",
-//     projectId: "group-project-1-e214d",
-//     storageBucket: "group-project-1-e214d.appspot.com",
-//     messagingSenderId: "734613753940"
-// };
-// firebase.initializeApp(config);
-// // Gets a reference to the database
-// // --------------------------------------------------------------------------------
-// var database = firebase.database();
-// var clickCounter = 0;
-// // FUNCTIONS + EVENTS
-// // --------------------------------------------------------------------------------
-// $("#thumbsup").on("click", function () {
-//     clickCounter++;
-//     database.ref().set({
-//         clickCount: clickCounter
-//     });
-// });
-
-// database.ref().on("value", function (snapshot) {
-//     console.log(snapshot.val());
-//     $("#click-value").text(snapshot.val().clickCount);
-//     clickCounter = snapshot.val().clickCount;
-// });
-
 // Search for beers 
 $(document).on("click", "#search-button", function (event) {
     event.preventDefault();
@@ -360,6 +295,7 @@ function getImageData(data) {
     $('#BeerBody').text(beerDescription);
     $('#BeerDetails').html(beerDetails);
     $('#beerModal').modal('toggle');
+    $('#thumbsup').attr("name", beerName);
 }
 
 //Opens new html page for google places.
@@ -512,3 +448,63 @@ function drawCarousel() {
         }
     });
 }
+
+var config = {
+    apiKey: "AIzaSyANPVjyDPOaf__7rBLObpggPLvD8hxgJ2o",
+    authDomain: "group-project-1-e214d.firebaseapp.com",
+    databaseURL: "https://group-project-1-e214d.firebaseio.com",
+    projectId: "group-project-1-e214d",
+    storageBucket: "group-project-1-e214d.appspot.com",
+    messagingSenderId: "734613753940"
+  };
+  firebase.initializeApp(config);
+  var database = firebase.database();
+    
+    $("#search-button").on("click", function() {
+      var beer = $("#search-field").val().trim().toLowerCase();
+
+      database.ref("/beers").push({ beer: beer});
+    });
+  
+    // database.ref().on("value", function(snapshot) {
+    //   console.log(snapshot.val());
+    //   $("#click-value").text(snapshot.val().clickCount);
+    //   clickCounter = snapshot.val().clickCount;
+
+    // });
+
+    var database = firebase.database();
+    var clickCounter = 0;
+    
+    $("#thumbsup").on("click", function() {
+      clickCounter++;
+    //   database.ref("/clicks").set(clickCounter);
+      database.ref("/clicks").transaction(function(currentClicks)   {
+        return (currentClicks || 0) + 1;
+      });
+      var beerName = $("#thumbsup").attr("name");
+      console.log;
+    likeBeer(beerName);
+    //   this.data
+    });
+  
+    database.ref("/clicks").on("value", function(snapshot) {
+      console.log(snapshot.val());
+    //   $("#click-value").text(snapshot.val().clickCount);
+    //   clickCounter = snapshot.val().clickCount;
+
+
+    });
+
+    database.ref("/likes").on("value", function(snapshot) {
+      console.log(snapshot.val());
+
+
+    });
+    function likeBeer(beerName)   {
+        database.ref("/likes").transaction(function(likedBeer) {
+            var likes = likedBeer || {}
+            likes[beerName] = (likes[beerName] || 0) + 1
+            return likes 
+        });
+    }
