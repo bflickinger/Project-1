@@ -396,6 +396,15 @@ $("#find-button").click(function () {
     }
 });
 
+$("#favorite-button").click(function () {
+    $('#favModal').modal('toggle');
+    // loop for number items that are favorited
+        // in loop, 
+    for(var i=1; i<11; i++){
+        var favoriteList = $("<li>Beer Name - Number of favorites</li>");
+        $("#favorite-body").append(favoriteList);
+    }
+});
 
 $(document).ready(function () {
     if (/index.html/.test(window.location.href)) {
