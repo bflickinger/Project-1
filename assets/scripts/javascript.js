@@ -34,35 +34,6 @@ database.ref().on("value", function (snapshot) {
     clickCounter = snapshot.val().clickCount;
 });
 
-// // Initialize Firebase
-// var config = {
-//     apiKey: "AIzaSyANPVjyDPOaf__7rBLObpggPLvD8hxgJ2o",
-//     authDomain: "group-project-1-e214d.firebaseapp.com",
-//     databaseURL: "https://group-project-1-e214d.firebaseio.com",
-//     projectId: "group-project-1-e214d",
-//     storageBucket: "group-project-1-e214d.appspot.com",
-//     messagingSenderId: "734613753940"
-// };
-// firebase.initializeApp(config);
-// // Gets a reference to the database
-// // --------------------------------------------------------------------------------
-// var database = firebase.database();
-// var clickCounter = 0;
-// // FUNCTIONS + EVENTS
-// // --------------------------------------------------------------------------------
-// $("#thumbsup").on("click", function () {
-//     clickCounter++;
-//     database.ref().set({
-//         clickCount: clickCounter
-//     });
-// });
-
-// database.ref().on("value", function (snapshot) {
-//     console.log(snapshot.val());
-//     $("#click-value").text(snapshot.val().clickCount);
-//     clickCounter = snapshot.val().clickCount;
-// });
-
 // Search for beers 
 $(document).on("click", "#search-button", function (event) {
     event.preventDefault();
