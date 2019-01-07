@@ -64,6 +64,7 @@ database.ref().on("value", function (snapshot) {
 // });
 
 // Search for beers 
+
 $(document).on("click", "#search-button", function (event) {
     event.preventDefault();
     var searchTerm = "search?q=" + $("#search-field").val().trim();
@@ -398,8 +399,8 @@ $("#find-button").click(function () {
 
 
 $(document).ready(function () {
-    if (/index.html/.test(window.location.href)) {
-        getRandomBeer();
+  if (/index.html/.test(window.location.href)) {
+        getRandomBeer();   
     }
 });
 
