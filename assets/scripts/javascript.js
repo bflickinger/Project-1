@@ -31,6 +31,18 @@ $(document).on("click", "#search-button", function (event) {
                                     "description": response.data[i].description,
                                     "beertype": response.data[i].style.name,
                                     "beertypedescription": response.data[i].style.description,
+                                    "abv": response.data[i].abv,
+                                    "ibu": response.data[i].ibu,
+                                    "abvtypemax": response.data[i].style.abvMax,
+                                    "abvtypemin": response.data[i].style.abvMin,
+                                    "ibutypemax": response.data[i].style.ibuMax,
+                                    "ibutypemin": response.data[i].style.ibuMin,
+                                    "fgtypemax": response.data[i].style.fgMax,
+                                    "fgtypemin": response.data[i].style.fgMin,
+                                    "ogtypemax": response.data[i].style.ogMax,
+                                    "ogtypemin": response.data[i].style.ogMin,
+                                    "srmtypemax": response.data[i].style.srmMax,
+                                    "srmtypemin": response.data[i].style.srmMin,
                                     "onclick": "getImageData(this)"
                                 })
                             );
@@ -46,7 +58,6 @@ $(document).on("click", "#search-button", function (event) {
 });
 
 //Gets 4 random beers
-
 function getRandomBeer() {
     var getRandomBeerURL = "https://sandbox-api.brewerydb.com/v2/beer/random/?key=7380497d0148ba2e8a2b2d6ba7362a03";
     var carouselItem = "";
@@ -108,6 +119,7 @@ function getRandomBeer() {
             });
     }
 }
+
 
 function getImageData(data) {
 
@@ -300,23 +312,35 @@ function getImageData(data) {
 
 //Opens new html page for google places.
 
+
+//Regex to validate Zip Code
+
 function isValidUSZip(sZip) {
     return /^\d{5}(-\d{4})?$/.test(sZip);
 }
 
+//Opens new html page for google places if Zip Code is validated.
 $("#find-button").click(function () {
     tempZip = $("#zip-field").val().trim();
     if (isValidUSZip(tempZip)) {
         console.log("valid zip code!");
-        window.location = "localbreweries.html";
+        localStorage.setItem("Zip", tempZip);
+        window.open("localbreweries.html");
     } else {
         console.log("not a valid zip code");
         $('#zipModal').modal('toggle');
     }
 });
 
-var windowLoc = $(location).attr('pathname');
-console.log(windowLoc);
+$("#favorite-button").click(function () {
+    $('#favModal').modal('toggle');
+    // loop for number items that are favorited
+        // in loop, 
+    for(var i=1; i<11; i++){
+        var favoriteList = $("<li>Beer Name - Number of favorites</li>");
+        $("#favorite-body").append(favoriteList);
+    }
+});
 
 $(document).ready(function () {
     if (/index.html/.test(window.location.href)) {
@@ -325,43 +349,36 @@ $(document).ready(function () {
 });
 
 // Google places code to create map and markers.
-var latLongString;
+function handleResponse(data){
+    console.log("handle response function: " + data);
+    latLong = data.results[0].geometry.location;
+    console.log(latLong);
+    initMap(latLong);
+}
 
 function getLatLngByZipcode(zipcode) {
     var latLongQuery = "https://maps.googleapis.com/maps/api/geocode/json?address=" + zipcode + "&key=AIzaSyAxR6ZRJI9Wrw_dljpvfsR2Ic35iF-3OPo"
     $.ajax({
         url: latLongQuery,
         method: "GET",
-        success: function (response) {
-            latitude = response.results[0].geometry.location.lat;
-            longitude = response.results[0].geometry.location.lng;
-            console.log(latitude);
-            console.log(longitude);
-            answer = { latitude, longitude };
-            initMap(answer);
-        }
+        success: function(response) {
+            handleResponse(response);
+        } 
     })
 }
 
-function handleResponse(answer) {
-    latLongString = answer;
-    console.log(latLongString);
-}
-
-getLatLngByZipcode(85226);
-
+console.log(localStorage.getItem("Zip"));
+latLng = getLatLngByZipcode(localStorage.getItem("Zip"));
 
 var map;
 
 function initMap(customLocation) {
     if (/localbreweries.html/.test(window.location.href)) {
         // Create the map.
-
-        console.log(customLocation);
-        var customLocation = { lat: 33.423409, lng: -111.940412 };
+        // var customLocation = { lat: 33.423409, lng: -111.940412 };
+        // console.log(customLocation);
         map = new google.maps.Map(document.getElementById('map'), {
             center: customLocation,
-
             zoom: 17
         });
 
