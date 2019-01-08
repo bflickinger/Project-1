@@ -51,12 +51,12 @@ $(document).on("click", "#search-button", function (event) {
                             );
                             $("#brews-carousel").append(beerItem);
                         };
-                    
+
                     };
                     drawCarousel();
                     console.log("Draw Carousel Fired");
                 };
-                
+
             });
     }
 });
@@ -146,8 +146,7 @@ function getImageData(data) {
     var srmTypeMin = "";
     var beerDetails = "";
 
-    for(i = 0; i < data.attributes.length - 1; i++)
-    {
+    for (i = 0; i < data.attributes.length - 1; i++) {
         if (data.attributes[i].name == "data") {
             if (typeof data.attributes[i].value !== 'undefined') {
                 beerId = data.attributes[i].value;
@@ -243,10 +242,10 @@ function getImageData(data) {
 
     if (beerABV !== "") {
         if (beerDetails == "") {
-            beerDetails += beerName + ":  ABV: "  + beerABV;
+            beerDetails += beerName + ":  ABV: " + beerABV;
         }
         else {
-            beerDetails += "<br />" + beerName + ":  ABV: "  + beerABV;
+            beerDetails += "<br />" + beerName + ":  ABV: " + beerABV;
         }
     }
     else {
@@ -263,47 +262,47 @@ function getImageData(data) {
 
     if (beerIBU !== "") {
         if (beerDetails == "") {
-            beerDetails += beerName + ":  IBU: "  + beerIBU;
+            beerDetails += beerName + ":  IBU: " + beerIBU;
         }
         else {
-            beerDetails += "<br />" + beerName + ":  IBU: "  + beerIBU;
+            beerDetails += "<br />" + beerName + ":  IBU: " + beerIBU;
         }
     }
     else {
         if (ibuTypeMin !== "" && ibuTypeMax !== "") {
             if (beerDetails == "") {
-            beerDetails += beerType + ":  Min IBU: " + ibuTypeMin + "  Max IBU: " + ibuTypeMax;
+                beerDetails += beerType + ":  Min IBU: " + ibuTypeMin + "  Max IBU: " + ibuTypeMax;
             }
             else {
-                beerDetails += "<br />" + beerType + ":  Min IBU: " + ibuTypeMin + "  Max IBU: " + ibuTypeMax; 
+                beerDetails += "<br />" + beerType + ":  Min IBU: " + ibuTypeMin + "  Max IBU: " + ibuTypeMax;
             }
         }
 
-    }   
+    }
     if (srmTypeMin !== "" && srmTypeMax !== "") {
         if (beerDetails == "") {
-        beerDetails += beerType + ":  Min SRM: " + srmTypeMin + "  Max SRM: " + srmTypeMax;
+            beerDetails += beerType + ":  Min SRM: " + srmTypeMin + "  Max SRM: " + srmTypeMax;
         }
         else {
-            beerDetails += "<br />" + beerType + ":  Min SRM: " + srmTypeMin + "  Max SRM: " + srmTypeMax; 
+            beerDetails += "<br />" + beerType + ":  Min SRM: " + srmTypeMin + "  Max SRM: " + srmTypeMax;
         }
     }
     if (ogTypeMin !== "" && ogTypeMax !== "") {
         if (beerDetails == "") {
-        beerDetails += beerType + ":  Min OG: " + ogTypeMin + "  Max OG: " + ogTypeMax;
+            beerDetails += beerType + ":  Min OG: " + ogTypeMin + "  Max OG: " + ogTypeMax;
         }
         else {
             beerDetails += "<br />" + beerType + ":  Min OG: " + ogTypeMin + "  Max OG: " + ogTypeMax;
         }
-    }   
+    }
     if (fgTypeMin !== "" && fgTypeMax !== "") {
         if (beerDetails == "") {
-        beerDetails += beerType + ":  Min FG: " + fgTypeMin + "  Max FG: " + fgTypeMax;
+            beerDetails += beerType + ":  Min FG: " + fgTypeMin + "  Max FG: " + fgTypeMax;
         }
         else {
             beerDetails += "<br />" + beerType + ":  Min FG: " + fgTypeMin + "  Max FG: " + fgTypeMax;
         }
-    }  
+    }
 
 
     $('#beerInfo').text(beerName);
@@ -347,13 +346,11 @@ $("#find-button").click(function () {
 // });
 
 $(document).ready(function () {
-  if (/index.html/.test(window.location.href)) {
-        getRandomBeer();   
-    }
+        getRandomBeer();
 });
 
 // Google places code to create map and markers.
-function handleResponse(data){
+function handleResponse(data) {
     console.log("handle response function: " + data);
     latLong = data.results[0].geometry.location;
     console.log(latLong);
@@ -365,9 +362,9 @@ function getLatLngByZipcode(zipcode) {
     $.ajax({
         url: latLongQuery,
         method: "GET",
-        success: function(response) {
+        success: function (response) {
             handleResponse(response);
-        } 
+        }
     })
 }
 
@@ -477,69 +474,77 @@ var config = {
     projectId: "group-project-1-e214d",
     storageBucket: "group-project-1-e214d.appspot.com",
     messagingSenderId: "734613753940"
-  };
-  firebase.initializeApp(config);
-  var database = firebase.database();
-    
-    $("#search-button").on("click", function() {
-      var beer = $("#search-field").val().trim().toLowerCase();
+};
+firebase.initializeApp(config);
+var database = firebase.database();
 
-      database.ref("/beers").push({ beer: beer});
-    });
+$("#search-button").on("click", function () {
+    var beer = $("#search-field").val().trim().toLowerCase();
+
+    database.ref("/beers").push({ beer: beer });
+});
 
 
-    var database = firebase.database();
-    var clickCounter = 0;
-    
-    $("#thumbsup").on("click", function() {
-      clickCounter++;
+var database = firebase.database();
+var clickCounter = 0;
+
+$("#thumbsup").on("click", function () {
+    clickCounter++;
     //   database.ref("/clicks").set(clickCounter);
-      database.ref("/clicks").transaction(function(currentClicks)   {
+    database.ref("/clicks").transaction(function (currentClicks) {
         return (currentClicks || 0) + 1;
-      });
-      var beerName = $("#thumbsup").attr("name");
-      console.log;
+    });
+    var beerName = $("#thumbsup").attr("name");
+    console.log;
     likeBeer(beerName);
     //   this.data
-    });
-  
-    database.ref("/clicks").on("value", function(snapshot) {
-      console.log(snapshot.val());
+});
+
+database.ref("/clicks").on("value", function (snapshot) {
+    console.log(snapshot.val());
     //   $("#click-value").text(snapshot.val().clickCount);
     //   clickCounter = snapshot.val().clickCount;
 
 
+});
+
+database.ref("/likes").on("value", function (snapshot) {
+    console.log(snapshot.val());
+
+
+});
+function likeBeer(beerName) {
+    database.ref("/likes").transaction(function (likedBeer) {
+        var likes = likedBeer || {}
+        likes[beerName] = (likes[beerName] || 0) + 1
+        return likes
     });
+}
 
-    database.ref("/likes").on("value", function(snapshot) {
-      console.log(snapshot.val());
-
-
-    });
-    function likeBeer(beerName)   {
-        database.ref("/likes").transaction(function(likedBeer) {
-            var likes = likedBeer || {}
-            likes[beerName] = (likes[beerName] || 0) + 1
-            return likes 
+$("#favorite-button").click(function () {
+    $('#favModal').modal('toggle');
+    // dataRef.ref().on("child_added", function(childSnapshot)
+    // loop for number items that are favorited
+    // in loop,
+    database.ref("/likes").once("value", function (childSnapshot) {
+        var beerNameTemp = childSnapshot.val();
+        var tempArr = [];
+        $.each(beerNameTemp, function (i, v) {
+            tempArr.push([i, v]);
         });
-    }
+        console.log(tempArr);
+        console.log(tempArr.length);
+        // for(let i=0; tempArr.length; i++){
+        //     console.log(tempArr[i]);
+        // }
+        // // console.log(beerNameTemp);
+        // var numLikes = childSnapshot.val().likes;            
 
-    $("#favorite-button").click(function () {
-        $('#favModal').modal('toggle');
-        // dataRef.ref().on("child_added", function(childSnapshot)
-        // loop for number items that are favorited
-            // in loop,
-            database.ref("/likes").once("value", function(childSnapshot) {
-                console.log(childSnapshot.val());
-            
-                // var beerNameTemp = childSnapshot.val().likedBeer;
-                // // console.log(beerNameTemp);
-                // var numLikes = childSnapshot.val().likes;            
-            
-                // var newRow = $("<tr>").append(
-                //     $("<td>").text(beerNameTemp),
-                //     $("<td>").text(numLikes)
-                // );
-                // $("#favorite-body > tbody").append(newRow);
-            });
+        // var newRow = $("<tr>").append(
+        //     $("<td>").text(beerNameTemp),
+        //     $("<td>").text(numLikes)
+        // );
+        // $("#favorite-body > tbody").append(newRow);
+        // });
     });
+});
