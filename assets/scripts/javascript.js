@@ -336,15 +336,15 @@ $("#find-button").click(function () {
     }
 });
 
-$("#favorite-button").click(function () {
-    $('#favModal').modal('toggle');
-    // loop for number items that are favorited
-        // in loop, 
-    for(var i=1; i<11; i++){
-        var favoriteList = $("<li>Beer Name - Number of favorites</li>");
-        $("#favorite-body").append(favoriteList);
-    }
-});
+// $("#favorite-button").click(function () {
+//     $('#favModal').modal('toggle');
+//     // loop for number items that are favorited
+//         // in loop, 
+//     for(var i=1; i<11; i++){
+//         var favoriteList = $("<li>Beer Name - Number of favorites</li>");
+//         $("#favorite-body").append(favoriteList);
+//     }
+// });
 
 $(document).ready(function () {
   if (/index.html/.test(window.location.href)) {
@@ -523,3 +523,23 @@ var config = {
             return likes 
         });
     }
+
+    $("#favorite-button").click(function () {
+        $('#favModal').modal('toggle');
+        // dataRef.ref().on("child_added", function(childSnapshot)
+        // loop for number items that are favorited
+            // in loop,
+            database.ref("/likes").once("value", function(childSnapshot) {
+                console.log(childSnapshot.val());
+            
+                // var beerNameTemp = childSnapshot.val().likedBeer;
+                // // console.log(beerNameTemp);
+                // var numLikes = childSnapshot.val().likes;            
+            
+                // var newRow = $("<tr>").append(
+                //     $("<td>").text(beerNameTemp),
+                //     $("<td>").text(numLikes)
+                // );
+                // $("#favorite-body > tbody").append(newRow);
+            });
+    });
