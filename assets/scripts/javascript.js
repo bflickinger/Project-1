@@ -512,6 +512,7 @@ function likeBeer(beerName) {
 }
 
 $("#favorite-button").click(function () {
+    $("#beer-body").html("");
     $('#favModal').modal('toggle');
     database.ref("/likes").once("value", function (childSnapshot) {
         var beerNameTemp = childSnapshot.val();
