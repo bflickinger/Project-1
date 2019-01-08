@@ -523,17 +523,3 @@ var config = {
             return likes 
         });
     }
-
-    $("#favorite-button").click(function () {
-        $('#favModal').modal('toggle');
-        // dataRef.ref().on("child_added", function(childSnapshot)
-        // loop for number items that are favorited
-            // in loop, 
-        
-        for(var i=1; i<11; i++){
-            //var ref = 
-            //var favoriteList = firebase.database().ref("/likes");
-            //$("<li>Beer Name - Number of favorites</li>");
-            //$("#favorite-body").append(favoriteList);
-            }
-    });
