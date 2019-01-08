@@ -335,18 +335,8 @@ $("#find-button").click(function () {
     }
 });
 
-// $("#favorite-button").click(function () {
-//     $('#favModal').modal('toggle');
-//     // loop for number items that are favorited
-//         // in loop, 
-//     for(var i=1; i<11; i++){
-//         var favoriteList = $("<li>Beer Name - Number of favorites</li>");
-//         $("#favorite-body").append(favoriteList);
-//     }
-// });
-
 $(document).ready(function () {
-        getRandomBeer();
+    getRandomBeer();
 });
 
 // Google places code to create map and markers.
@@ -522,10 +512,8 @@ function likeBeer(beerName) {
 }
 
 $("#favorite-button").click(function () {
+    $("#beer-body").html("");
     $('#favModal').modal('toggle');
-    // dataRef.ref().on("child_added", function(childSnapshot)
-    // loop for number items that are favorited
-    // in loop,
     database.ref("/likes").once("value", function (childSnapshot) {
         var beerNameTemp = childSnapshot.val();
         var tempArr = [];
@@ -534,17 +522,13 @@ $("#favorite-button").click(function () {
         });
         console.log(tempArr);
         console.log(tempArr.length);
-        // for(let i=0; tempArr.length; i++){
-        //     console.log(tempArr[i]);
-        // }
-        // // console.log(beerNameTemp);
-        // var numLikes = childSnapshot.val().likes;            
-
-        // var newRow = $("<tr>").append(
-        //     $("<td>").text(beerNameTemp),
-        //     $("<td>").text(numLikes)
-        // );
-        // $("#favorite-body > tbody").append(newRow);
-        // });
+        $.each(tempArr, function (i, v) {
+            console.log("I: " + i,"V: " + v[0] + " likes: " + v[1]);
+            var newRow = $("<tr>").append(
+                $("<td>").text(v[0]),
+                $("<td>").text(v[1])
+            );
+            $("#beer-table > tbody").append(newRow);
+        });
     });
 });
