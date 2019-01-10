@@ -1,11 +1,9 @@
-
 /* .show {
     font-family: 'Fjalla One', sans-serif; 
     color:rgb(248, 238, 147); 
     position: relative; 
     display: inline block;
 }
-
 .show .showtext {
     visibility: hidden; 
     width: 300px; 
@@ -18,7 +16,6 @@
     top: -235px; 
     left:105%
 }
-
 .show:hover .showtext {
     visibility: visible;
 } */
